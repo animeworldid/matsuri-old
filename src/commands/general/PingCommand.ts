@@ -2,7 +2,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
 import { CommandContext, ContextCommand } from "@frutbits/command-context";
 import { ColorResolvable, MessageEmbed } from "discord.js";
-import { guildsToRegister, isDev } from "../../config";
+import { guildsToRegister } from "../../config";
 
 @ApplyOptions<Command.Options>({
     aliases: [],

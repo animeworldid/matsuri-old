@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
-import { guildsToRegister, isDev } from "../../config";
+import { guildsToRegister } from "../../config";
 import { Util } from "../../utils/Util";
 import moment from "moment";
 import { CommandContext, ContextCommand } from "@frutbits/command-context";
