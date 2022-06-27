@@ -4,7 +4,7 @@ import { CommandContext, ContextCommand } from "@frutbits/command-context";
 import { guildsToRegister } from "../../config";
 import { Util } from "../../utils/Util";
 import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from "discord.js";
-import { CustomID } from "../../constants";
+import { Channels, CustomID } from "../../constants";
 import { TextInputStyles } from "discord.js/typings/enums";
 
 @ApplyOptions<Command.Options>({
@@ -31,6 +31,16 @@ export class SuggestCommand extends ContextCommand {
 
     // eslint-disable-next-line class-methods-use-this
     public async contextRun(ctx: CommandContext): Promise<any> {
+        if (ctx.channelId !== Channels.SUGGESTION) {
+            return ctx.send({
+                embeds: [
+                    Util.createEmbed("error", `You must run this command in <#${Channels.SUGGESTION}>!`, true)
+                ],
+                ephemeral: true
+            }).then(x => {
+                if (ctx.isMessageContext()) setTimeout(() => x.delete(), 5_000);
+            });
+        }
         if (ctx.isCommandInteractionContext()) {
             return ctx.showModal(
                 new Modal()
