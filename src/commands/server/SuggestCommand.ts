@@ -4,7 +4,7 @@ import { CommandContext, ContextCommand } from "@frutbits/command-context";
 import { guildsToRegister } from "../../config";
 import { Util } from "../../utils/Util";
 import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from "discord.js";
-import { Channels, CustomID } from "../../constants";
+import { Channels, CustomID, Emojis } from "../../constants";
 import { TextInputStyles } from "discord.js/typings/enums";
 
 @ApplyOptions<Command.Options>({
@@ -58,10 +58,30 @@ export class SuggestCommand extends ContextCommand {
             );
         }
 
-        return ctx.send({
-            embeds: [
-                Util.createEmbed("error", "Sorry, you need to run this command with slash command (/suggest)")
-            ]
-        }).then(x => setTimeout(() => x.delete(), 10_000));
+        if (ctx.isMessageContext()) {
+            const suggestion = await ctx.args?.restResult("string");
+            if (!suggestion?.value || !suggestion.value.length) {
+                return ctx.send({
+                    embeds: [
+                        Util.createEmbed("error", "Please provide a suggestion!", true)
+                    ]
+                }).then(x => {
+                    if (ctx.isMessageContext()) setTimeout(() => x.delete(), 5_000);
+                });
+            }
+
+            const msg = await ctx.send({
+                embeds: [
+                    Util.createEmbed("info")
+                        .addField("Submitter", `${ctx.author.tag} (${ctx.author.toString()})`)
+                        .addField("Suggestion", suggestion.value)
+                        .setThumbnail(ctx.author.displayAvatarURL({ dynamic: true, size: 4096, format: "png" }))
+                        .setFooter({ text: `User ID: ${ctx.author.id}` })
+                ]
+            });
+
+            await msg.react(Emojis.YES);
+            await msg.react(Emojis.NO);
+        }
     }
 }
