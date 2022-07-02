@@ -59,6 +59,7 @@ export class SuggestCommand extends ContextCommand {
         }
 
         if (ctx.isMessageContext()) {
+            await ctx.delete();
             const suggestion = await ctx.args?.restResult("string");
             if (!suggestion?.value || !suggestion.value.length) {
                 return ctx.send({
