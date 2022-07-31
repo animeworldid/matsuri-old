@@ -9,7 +9,7 @@ import { Channels } from "../constants";
 export class MessageCreateListener extends Listener {
     // eslint-disable-next-line class-methods-use-this
     public async run(message: Message): Promise<any> {
-        if (!message.member?.permissions.has("MANAGE_GUILD") && message.channelId === Channels.SUGGESTION) {
+        if (!message.member?.permissions.has("MANAGE_GUILD") && message.channelId === Channels.SUGGESTION && message.author.id !== this.container.client.user!.id) {
             if (message.deletable) await message.delete();
         }
     }
