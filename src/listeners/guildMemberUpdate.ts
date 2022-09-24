@@ -12,6 +12,8 @@ export class GuildMemberUpdateListener extends Listener {
         if (newMember.guild.id === Guild.PRIMARY) {
             if (oldMember.pending && !newMember.pending) {
                 for (const role of autoRole) {
+                    if (newMember.roles.cache.has(role)) continue;
+                    await new Promise(res => setTimeout(() => res(true), 1_500));
                     await newMember.roles.add(role, "Auto-role after accepting rules screening");
                 }
             }
