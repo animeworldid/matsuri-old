@@ -8,9 +8,11 @@ export const autoRole = [
     "637279136343261184"
 ];
 
-export const boosterRole = "626710421654732800";
-export const premiumRole = "733634632800665651";
-export const donatorRole = "919783888631504946";
+export enum Roles {
+    BOOSTER = "626710421654732800",
+    PREMIUM = "733634632800665651",
+    DONATOR = "919783888631504946"
+}
 
 export enum Emojis {
     YES = "<:yes:990955540802863104>",
@@ -23,7 +25,7 @@ export enum Guild {
 
 export enum Channels {
     SUGGESTION = "799607782071992330",
-    BOOSTER = "643734634722623509"
+    BOOSTER_NOTIFICATION = "643734634722623509"
 }
 
 export enum Images {
