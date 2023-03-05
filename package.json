@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@frutbits/pino-logger": "^3.3.0",
-    "@sapphire/decorators": "^4.3.6",
+    "@sapphire/decorators": "^6.0.0",
     "@sapphire/framework": "^4.2.0",
     "@sapphire/plugin-editable-commands": "^2.0.1",
     "@sapphire/result": "^2.6.0",
