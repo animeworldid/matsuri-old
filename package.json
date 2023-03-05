@@ -72,7 +72,7 @@
     "@sapphire/framework": "^4.2.0",
     "@sapphire/plugin-editable-commands": "^3.0.0",
     "@sapphire/result": "^2.6.0",
-    "@sapphire/utilities": "^3.6.2",
+    "@sapphire/utilities": "^3.11.0",
     "canvas-constructor": "^7.0.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
