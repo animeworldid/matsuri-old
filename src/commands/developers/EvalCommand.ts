@@ -79,7 +79,7 @@ export class EvalCommand extends Command {
             if (error.length > 1024) {
                 const hastebin = await Util.hastebin(error);
                 embed.addFields({
-                    name: "Error", 
+                    name: "Error",
                     value: `${hastebin}.js`
                 });
             } else {

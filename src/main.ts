@@ -7,15 +7,7 @@ import "dotenv/config";
 import process from "node:process";
 import { devs, isDev, prefix } from "./config.js";
 import { BotClient } from "./structures/BotClient.js";
-import { Util } from "./utils/Util.js";
 import { GatewayIntentBits } from "discord.js";
-
-const date = Util.formatDate(Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour12: false
-}));
 
 const client = new BotClient({
     intents: [

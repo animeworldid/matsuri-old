@@ -8,7 +8,7 @@ import { ApplicationCommandOptionType, ChannelType, GuildVerificationLevel } fro
 @ApplyOptions<Command.Options>({
     name: "server",
     description: "Check the server information",
-    requiredClientPermissions: ["EmbedLinks"],
+    requiredClientPermissions: ["EmbedLinks"]
 })
 export class ServerinfoCommand extends Command {
     public override registerApplicationCommands(registry: ApplicationCommandRegistry): void {
@@ -63,7 +63,7 @@ export class ServerinfoCommand extends Command {
             const serverowner = await interaction.guild?.fetchOwner();
 
             const serverembed = Util.createEmbed("info")
-                .setThumbnail(interaction.guild!.iconURL({ extension: "png", size: 4096 })!)
+                .setThumbnail(interaction.guild!.iconURL({ extension: "png", size: 4096 }))
                 .setAuthor({ name: `${interaction.guild!.name} - Discord Server` })
                 .setDescription("You can type **`server roles`** to list the server roles,\nand also **`server icon`** to show the server icon.")
                 .addFields(
@@ -103,7 +103,7 @@ export class ServerinfoCommand extends Command {
 
         if (subcommand === "roles") {
             const serverrolesembed = Util.createEmbed("info")
-                .setThumbnail(interaction.guild!.iconURL({ extension: "png", size: 2048 })!)
+                .setThumbnail(interaction.guild!.iconURL({ extension: "png", size: 2048 }))
                 .setAuthor({ name: `${interaction.guild!.name} - Roles List` })
                 .addFields({
                     name: `**Server roles** [**${interaction.guild!.roles.cache.size}**]`,

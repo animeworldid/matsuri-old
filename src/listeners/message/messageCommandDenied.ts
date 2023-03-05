@@ -13,7 +13,7 @@ export class MessageCommandDeniedListener extends Listener<typeof Events.Message
                 Util.createEmbed("error", content, true)
             ]
         };
-    
+
         const cooldownRemaining = Reflect.get(Object(context), "remaining") as number | undefined;
         if (cooldownRemaining && identifier === Identifiers.PreconditionCooldown) {
             payload.embeds = [

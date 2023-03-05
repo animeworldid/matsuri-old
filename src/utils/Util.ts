@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
-import { ColorResolvable, EmbedBuilder, PermissionsString } from "discord.js";
+import { ColorResolvable, EmbedBuilder } from "discord.js";
 import { request } from "https";
 import prettyMilliseconds from "pretty-ms";
 import { embedInfoColor, Emojis } from "../constants";
