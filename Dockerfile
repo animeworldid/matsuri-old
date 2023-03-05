@@ -37,4 +37,4 @@ COPY --from=build-stage /tmp/build/dist ./dist
 COPY --from=build-stage /tmp/build/assets ./assets
 
 # Start the app with node
-CMD ["node", "--max-old-space-size=4096", "dist/index.js"]
+CMD ["node", "dist/main"]
