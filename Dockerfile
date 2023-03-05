@@ -27,10 +27,14 @@ FROM ghcr.io/hazmi35/node:18-alpine
 LABEL name "chitoge"
 LABEL maintainer "Zen <zen@frutbits.org>"
 
+# Install dependencies
+RUN apk add --no-cache tzdata fontconfig cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
+
 # Copy needed files
 COPY --from=build-stage /tmp/build/package.json .
 COPY --from=build-stage /tmp/build/node_modules ./node_modules
 COPY --from=build-stage /tmp/build/dist ./dist
+COPY --from=build-stage /tmp/build/assets ./assets
 
 # Start the app with node
 CMD ["node", "--max-old-space-size=4096", "dist/index.js"]
