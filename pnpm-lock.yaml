@@ -5,7 +5,7 @@ specifiers:
   '@hazmi35/eslint-config': ^8.7.1
   '@sapphire/decorators': ^6.0.0
   '@sapphire/framework': ^4.2.0
-  '@sapphire/plugin-editable-commands': ^2.0.1
+  '@sapphire/plugin-editable-commands': ^3.0.0
   '@sapphire/result': ^2.6.0
   '@sapphire/utilities': ^3.6.2
   '@types/node': ^18.14.6
@@ -27,7 +27,7 @@ dependencies:
   '@frutbits/pino-logger': 3.3.0
   '@sapphire/decorators': 6.0.0
   '@sapphire/framework': 4.2.0
-  '@sapphire/plugin-editable-commands': 2.0.1
+  '@sapphire/plugin-editable-commands': 3.0.0
   '@sapphire/result': 2.6.0
   '@sapphire/utilities': 3.11.0
   canvas-constructor: 7.0.0
@@ -260,11 +260,11 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@sapphire/plugin-editable-commands/2.0.1:
-    resolution: {integrity: sha512-uXM2YweVLgZWzZxR0TDRPertnWiR6Yi8kuABudLIJuSN4WtAUUxeE65iUNEGN8rzFnIvRwHTRLRPxgIub0I6VQ==}
+  /@sapphire/plugin-editable-commands/3.0.0:
+    resolution: {integrity: sha512-RcmBOeBBOIPcwet/7AxFgbyRuHnW0Tpy1G/m897lSwkhDFG7zXUeJ9gEEWcoYCavJsC6mqiBSieI5pAC7vYMwQ==}
     engines: {node: '>=16.6.0', npm: '>=7.0.0'}
     dependencies:
-      '@skyra/editable-commands': 2.1.4
+      '@skyra/editable-commands': 3.0.0
       tslib: 2.5.0
     dev: false
 
@@ -310,8 +310,8 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
-  /@skyra/editable-commands/2.1.4:
-    resolution: {integrity: sha512-W/m7GVmPCFKmEc49J4dLP6+TRlbBhXUPkN5KAV4PSzk5JaYLOTl5fgjEzHJOxtLHwiQBd36lrQdsWKxL+N9zBQ==}
+  /@skyra/editable-commands/3.0.0:
+    resolution: {integrity: sha512-xP0yQDvNAjK1SsEqa9kwnkvr/jvzrrc5a6vp64hQULQezMXFBD23NBYMphV0CgLIDCifJHZfgQPBPL3zUAz5+A==}
     engines: {node: '>=16.6', npm: '>=7.24.2'}
     dev: false
 
