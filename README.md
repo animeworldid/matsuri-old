@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://api.zhycorp.org/assets/images/AWI_Icon.png" alt="Anime World Indonesia Logo" width="200px" height="200px"/>
+<img src="https://api.frutbits.org/assets/images/AWI_Icon.png" alt="Anime World Indonesia Logo" width="200px" height="200px"/>
 
 # @animeworldindonesia/chitoge
 
