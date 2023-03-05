@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@frutbits/pino-logger': ^3.3.0
   '@hazmi35/eslint-config': ^8.7.1
-  '@sapphire/decorators': ^4.3.6
+  '@sapphire/decorators': ^6.0.0
   '@sapphire/framework': ^4.2.0
   '@sapphire/plugin-editable-commands': ^2.0.1
   '@sapphire/result': ^2.6.0
@@ -25,7 +25,7 @@ specifiers:
 
 dependencies:
   '@frutbits/pino-logger': 3.3.0
-  '@sapphire/decorators': 4.3.8
+  '@sapphire/decorators': 6.0.0
   '@sapphire/framework': 4.2.0
   '@sapphire/plugin-editable-commands': 2.0.1
   '@sapphire/result': 2.6.0
@@ -200,8 +200,8 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
-  /@sapphire/decorators/4.3.8:
-    resolution: {integrity: sha512-W8vU0AHuyx5mRAEG/YvxPs6Th99zNyIlsmw+JjUtk8S+fUd2TZor2JfFPMdNvQhUPDzAzdCagCM7cNNOOtLfXQ==}
+  /@sapphire/decorators/6.0.0:
+    resolution: {integrity: sha512-su+5K/ZT8PTxPLal9ZEq2Ik1J4ucEnY1ccBY1USW3NRj8iLFaEhPeUKpikRey3Wox2mpKeoxzZphrIWO5E8fng==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dependencies:
       tslib: 2.5.0
