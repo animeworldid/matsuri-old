@@ -1,19 +1,15 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
-import { CommandContext, ContextCommand } from "@frutbits/command-context";
-import { ColorResolvable, MessageEmbed } from "discord.js";
+import { ColorResolvable, EmbedBuilder } from "discord.js";
 import { guildsToRegister } from "../../config";
 
 @ApplyOptions<Command.Options>({
     aliases: [],
     name: "ping",
     description: "Shows the current ping of the bot",
-    chatInputCommand: {
-        register: true
-    },
-    requiredClientPermissions: ["EMBED_LINKS"]
+    requiredClientPermissions: ["EmbedLinks"]
 })
-export class PingCommand extends ContextCommand {
+export class PingCommand extends Command {
     public override registerApplicationCommands(registry: ApplicationCommandRegistry): void {
         registry.registerChatInputCommand({
             name: this.name,
@@ -25,14 +21,14 @@ export class PingCommand extends ContextCommand {
         });
     }
 
-    public contextRun(ctx: CommandContext): any {
-        ctx.send({ content: "🏓 Pong!" }, true).then(msg => {
+    public chatInputRun(interaction: Command.ChatInputCommandInteraction): any {
+        interaction.reply({ content: "🏓 Pong!" }).then(msg => {
             const wsLatency = this.container.client.ws.ping.toFixed(0);
-            const latency = msg.createdTimestamp - ctx.createdTimestamp;
-            msg.edit({
+            const latency = msg.interaction.createdTimestamp - interaction.createdTimestamp;
+            interaction.editReply({
                 content: " ",
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                         .setAuthor({ name: "🏓 PONG!", iconURL: this.container.client.user!.displayAvatarURL() })
                         .setColor(PingCommand.searchHex(wsLatency))
                         .addFields({
@@ -44,7 +40,7 @@ export class PingCommand extends ContextCommand {
                             value: `**\`${wsLatency}\`** ms`,
                             inline: true
                         })
-                        .setFooter({ text: `Requested by: ${ctx.author.tag}`, iconURL: ctx.author.displayAvatarURL({ dynamic: true }) })
+                        .setFooter({ text: `Requested by: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
                         .setTimestamp()
                 ]
             }).catch(e => this.container.logger.error(e));

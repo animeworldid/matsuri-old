@@ -2,9 +2,8 @@
 /* eslint-disable no-eval */
 import { CommandOptions, Command, Args } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
-import { Message, MessageEmbed } from "discord.js";
+import { codeBlock, EmbedBuilder, Message } from "discord.js";
 import { inspect } from "util";
-import { codeBlock } from "@discordjs/builders";
 import { send } from "@sapphire/plugin-editable-commands";
 import { Util } from "../../utils/Util";
 
@@ -17,12 +16,12 @@ import { Util } from "../../utils/Util";
         usage: "{prefix}eval <some js code>"
     },
     preconditions: ["ownerOnly"],
-    requiredClientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"]
+    requiredClientPermissions: ["SendMessages", "EmbedLinks"]
 })
 export class EvalCommand extends Command {
     public async messageRun(message: Message, args: Args): Promise<any> {
         const input = await args.restResult("string");
-        if (!input.success) {
+        if (input.isErr()) {
             return send(message, {
                 embeds: [
                     Util.createEmbed("error", "Please provide a valid input!", true)
@@ -32,12 +31,15 @@ export class EvalCommand extends Command {
         const msg = message;
         const client = this.container.client;
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor("#00FF00")
-            .addField("Input", codeBlock("js", input.value));
+            .addFields({
+                name: "Input",
+                value: codeBlock("js", input.unwrap())
+            });
 
         try {
-            let code = input.value;
+            let code = input.unwrap();
             let isSilent = false;
             if (code.includes("--silent")) {
                 isSilent = true;
@@ -55,16 +57,37 @@ export class EvalCommand extends Command {
             const output = EvalCommand.clean(evaled);
             if (output.length > 1024) {
                 const hastebin = await Util.hastebin(output);
-                embed.addField("Output", `${hastebin}.js`);
-            } else { embed.addField("Output", `\`\`\`js\n${output}\`\`\``); }
-            embed.addField("Return Type", codeBlock(type));
+                embed.addFields({
+                    name: "Output",
+                    value: `${hastebin}.js`
+                });
+            } else {
+                embed.addFields({
+                    name: "Output",
+                    value: `\`\`\`js\n${output}\`\`\``
+                });
+            }
+
+            embed.addFields({
+                name: "Return Type",
+                value: codeBlock(type)
+            });
+
             if (!isSilent) return await send(message, { embeds: [embed] });
         } catch (e: any) {
             const error = EvalCommand.clean(e as string);
             if (error.length > 1024) {
                 const hastebin = await Util.hastebin(error);
-                embed.addField("Error", `${hastebin}.js`);
-            } else { embed.setColor("#FF0000").addField("Error", `\`\`\`js\n${error}\`\`\``); }
+                embed.addFields({
+                    name: "Error", 
+                    value: `${hastebin}.js`
+                });
+            } else {
+                embed.setColor("#FF0000").addFields({
+                    name: "Error",
+                    value: `\`\`\`js\n${error}\`\`\``
+                });
+            }
             return await send(message, { embeds: [embed] });
         }
         return message;

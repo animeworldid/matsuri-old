@@ -1,7 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
-import { CommandContext, ContextCommand } from "@frutbits/command-context";
-import { ApplicationCommandOptionTypes } from "discord.js/typings/enums";
+import { ApplicationCommandOptionType } from "discord.js";
 import { guildsToRegister } from "../../config";
 import { Util } from "../../utils/Util";
 
@@ -12,12 +11,9 @@ import { Util } from "../../utils/Util";
     detailedDescription: {
         usage: "{prefix}avatar [@mention | id]"
     },
-    chatInputCommand: {
-        register: true
-    },
-    requiredClientPermissions: ["EMBED_LINKS"]
+    requiredClientPermissions: ["EmbedLinks"]
 })
-export class AvatarCommand extends ContextCommand {
+export class AvatarCommand extends Command {
     public override registerApplicationCommands(registry: ApplicationCommandRegistry): void {
         registry.registerChatInputCommand({
             name: this.name,
@@ -25,7 +21,7 @@ export class AvatarCommand extends ContextCommand {
             options: [
                 {
                     name: "user",
-                    type: ApplicationCommandOptionTypes.USER,
+                    type: ApplicationCommandOptionType.User,
                     description: "User to view",
                     required: true
                 }
@@ -38,14 +34,13 @@ export class AvatarCommand extends ContextCommand {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    public async contextRun(ctx: CommandContext): Promise<any> {
-        const msgArgs = ctx.isMessageContext() ? await ctx.args?.restResult("user") : undefined;
-        const user = msgArgs?.value ?? (ctx.isCommandInteractionContext() ? ctx.options.getUser("user", true) : undefined) ?? ctx.author;
+    public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
+        const user = interaction.options.getUser("user", true) ?? interaction.user;
 
         const embed = Util.createEmbed("info")
-            .setImage(user.displayAvatarURL({ dynamic: true, format: "png", size: 4096 }))
+            .setImage(user.displayAvatarURL({ extension: "png", size: 4096 }))
             .setAuthor({ name: `${user.username}'s avatar` })
-            .setFooter({ text: `Replying to: ${ctx.author.tag}`, iconURL: ctx.author.displayAvatarURL() });
-        return ctx.send({ embeds: [embed] });
+            .setFooter({ text: `Replying to: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() });
+        return interaction.reply({ embeds: [embed] });
     }
 }
