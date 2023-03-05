@@ -36,5 +36,5 @@ COPY --from=build-stage /tmp/build/node_modules ./node_modules
 COPY --from=build-stage /tmp/build/dist ./dist
 COPY --from=build-stage /tmp/build/assets ./assets
 
-# Start the app with node
-CMD ["node", "dist/main"]
+# Start the app
+CMD ["npm", "start"]
