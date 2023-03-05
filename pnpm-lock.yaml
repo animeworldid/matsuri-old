@@ -5,8 +5,8 @@ specifiers:
   '@hazmi35/eslint-config': ^8.7.1
   '@sapphire/decorators': ^4.3.6
   '@sapphire/framework': ^4.2.0
-  '@sapphire/plugin-editable-commands': ^1.2.0
-  '@sapphire/result': ^1.1.1
+  '@sapphire/plugin-editable-commands': ^2.0.1
+  '@sapphire/result': ^2.6.0
   '@sapphire/utilities': ^3.6.2
   '@types/node': ^17.0.23
   '@typescript-eslint/eslint-plugin': ^5.53.0
@@ -25,8 +25,8 @@ dependencies:
   '@frutbits/pino-logger': 3.3.0
   '@sapphire/decorators': 4.3.8
   '@sapphire/framework': 4.2.0
-  '@sapphire/plugin-editable-commands': 1.2.2
-  '@sapphire/result': 1.1.1
+  '@sapphire/plugin-editable-commands': 2.0.1
+  '@sapphire/result': 2.6.0
   '@sapphire/utilities': 3.11.0
   discord.js: 14.7.1
   dotenv: 16.0.3
@@ -238,8 +238,8 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@sapphire/plugin-editable-commands/1.2.2:
-    resolution: {integrity: sha512-oy5DhHZCwfSVATF7BI7OpodluzPc5i/Yia7mRehcTbksL6hvG2fqB2osrjPQPqQd34YUbnpu+bRlr3iGq8p6LA==}
+  /@sapphire/plugin-editable-commands/2.0.1:
+    resolution: {integrity: sha512-uXM2YweVLgZWzZxR0TDRPertnWiR6Yi8kuABudLIJuSN4WtAUUxeE65iUNEGN8rzFnIvRwHTRLRPxgIub0I6VQ==}
     engines: {node: '>=16.6.0', npm: '>=7.0.0'}
     dependencies:
       '@skyra/editable-commands': 2.1.4
@@ -251,11 +251,6 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dependencies:
       '@sapphire/timer-manager': 1.0.0
-    dev: false
-
-  /@sapphire/result/1.1.1:
-    resolution: {integrity: sha512-mKWq+HCu9t+gqVcXMhfH72Trj6cO0LZilpdVYndqRb3+30mrRqs+NtdSf1wAERYEtBmOf3ZWvROe4RPSx7aKvw==}
-    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
   /@sapphire/result/2.6.0:
