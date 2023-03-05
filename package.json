@@ -77,7 +77,7 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "moment": "^2.29.4",
-    "pino-pretty": "^8.1.0",
+    "pino-pretty": "^9.4.0",
     "pretty-ms": "^8.0.0",
     "tslib": "^2.5.0",
     "skia-canvas": "^1.0.1"
