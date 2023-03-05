@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@frutbits/pino-logger': ^3.1.0
+  '@frutbits/pino-logger': ^3.3.0
   '@hazmi35/eslint-config': ^8.7.1
   '@sapphire/decorators': ^4.3.6
   '@sapphire/framework': ^4.2.0
