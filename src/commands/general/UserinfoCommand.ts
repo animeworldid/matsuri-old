@@ -1,7 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
-import { CommandContext, ContextCommand } from "@frutbits/command-context";
-import { ApplicationCommandOptionTypes } from "discord.js/typings/enums";
+import { ActivityType, ApplicationCommandOptionType } from "discord.js";
 import { guildsToRegister } from "../../config";
 import { Util } from "../../utils/Util";
 
@@ -12,12 +11,9 @@ import { Util } from "../../utils/Util";
     detailedDescription: {
         usage: "{prefix}userinfo [@mention | id]"
     },
-    chatInputCommand: {
-        register: true
-    },
-    requiredClientPermissions: ["EMBED_LINKS"]
+    requiredClientPermissions: ["EmbedLinks"]
 })
-export class UserinfoCommand extends ContextCommand {
+export class UserinfoCommand extends Command {
     public override registerApplicationCommands(registry: ApplicationCommandRegistry): void {
         registry.registerChatInputCommand({
             name: this.name,
@@ -25,7 +21,7 @@ export class UserinfoCommand extends ContextCommand {
             options: [
                 {
                     name: "user",
-                    type: ApplicationCommandOptionTypes.USER,
+                    type: ApplicationCommandOptionType.User,
                     description: "User to view",
                     required: true
                 }
@@ -38,9 +34,8 @@ export class UserinfoCommand extends ContextCommand {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    public async contextRun(ctx: CommandContext): Promise<any> {
-        const msgArgs = ctx.isMessageContext() ? await ctx.args?.restResult("user") : undefined;
-        const user = msgArgs?.value ?? (ctx.isCommandInteractionContext() ? ctx.options.getUser("user", true) : undefined) ?? ctx.author;
+    public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
+        const user = interaction.options.getUser("user", true);
 
         const status = {
             dnd: "(Do Not Disturb)",
@@ -51,22 +46,30 @@ export class UserinfoCommand extends ContextCommand {
             unknown: "(Unknown)"
         };
 
-        const member = ctx.guild!.members.cache.get(user.id) ?? await ctx.guild!.members.fetch(user.id).catch(() => undefined);
-        const game = member?.presence?.activities.find(x => x.type === "PLAYING");
+        const member = interaction.guild!.members.cache.get(user.id) ?? await interaction.guild!.members.fetch(user.id).catch(() => undefined);
+        const game = member?.presence?.activities.find(x => x.type === ActivityType.Playing);
 
         const embed = Util.createEmbed("info")
-            .setThumbnail(user.displayAvatarURL({ dynamic: true, format: "png", size: 2048 }))
+            .setThumbnail(user.displayAvatarURL({ extension: "png", size: 2048 }))
             .setAuthor({ name: `${user.username} - Discord User` })
-            .addField("**DETAILS**", `\`\`\`asciidoc
+            .addFields(
+                {
+                    name: "**DETAILS**",
+                    value: `\`\`\`asciidoc
 • Username :: ${user.tag}
 • ID       :: ${user.id}
 • Created  :: ${user.createdAt.toString()}
-• Joined   :: ${member?.joinedAt?.toString() ?? "Unknown"}\`\`\``)
-            .addField("**STATUS**", `\`\`\`asciidoc
+• Joined   :: ${member?.joinedAt?.toString() ?? "Unknown"}\`\`\``
+                },
+                {
+                    name: "**STATUS**",
+                    value: `\`\`\`asciidoc
 • Type     :: ${user.bot ? "Beep Boop, Boop Beep?" : "I'm not a robot."}
-• Presence :: ${status[member?.presence?.status ?? "unknown"]} ${game ? game.name : "No game detected."}\`\`\``)
-            .setFooter({ text: `Replying to: ${ctx.author.tag}`, iconURL: ctx.author.displayAvatarURL() })
+• Presence :: ${status[member?.presence?.status ?? "unknown"]} ${game ? game.name : "No game detected."}\`\`\``
+                }
+            )
+            .setFooter({ text: `Replying to: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
             .setTimestamp();
-        return ctx.send({ embeds: [embed] });
+        return interaction.reply({ embeds: [embed] });
     }
 }

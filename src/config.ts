@@ -1,4 +1,4 @@
-import { ClientPresenceStatus } from "discord.js";
+import { ActivityType, ClientPresenceStatus } from "discord.js";
 import { IPresenceData } from "./typings";
 
 export const devs: string[] = JSON.parse(process.env.CONFIG_DEVS ?? "[]");
@@ -7,7 +7,7 @@ export const isDev = process.env.NODE_ENV === "DEVELOPMENT";
 export const prefix = process.env.CONFIG_PREFIX!;
 export const presenceData: IPresenceData = {
     activities: [
-        { name: "discord.gg/otakuid", type: "WATCHING" }
+        { name: "discord.gg/otakuid", type: ActivityType.Watching }
     ],
     status: ["online"] as ClientPresenceStatus[],
     interval: 60000

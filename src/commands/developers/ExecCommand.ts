@@ -15,13 +15,14 @@ import { exec } from "child_process";
         usage: "{prefix}exec <bash>"
     },
     preconditions: ["ownerOnly"],
-    requiredClientPermissions: ["SEND_MESSAGES", "EMBED_LINKS"]
+    requiredClientPermissions: ["SendMessages", "EmbedLinks"]
 })
 export class ExecCommand extends Command {
     // eslint-disable-next-line class-methods-use-this
-    public async messageRun(message: Message, args: Args): Promise<any> {
+    public async messageRun(message: Message<true>, args: Args): Promise<any> {
+        if (message.channel.isVoiceBased()) return;
         const input = await args.restResult("string");
-        if (!input.success) {
+        if (!input.isOk()) {
             return send(message, {
                 embeds: [
                     Util.createEmbed("error", "Please provide a valid input!", true)
@@ -29,10 +30,11 @@ export class ExecCommand extends Command {
             });
         }
 
-        const m = await message.channel.send(`❯_ ${input.value}`);
-        exec(input.value, async (e: any, stdout: any, stderr: any) => {
+        const m = await message.channel.send(`❯_ ${input.unwrap()}`);
+        exec(input.unwrap(), async (e: any, stdout: any, stderr: any) => {
             if (e) return m.edit(`\`\`\`js\n${(e as Error).message}\`\`\``);
             if (!stderr && !stdout) return m.edit("Executed without result.");
+            if (message.channel.isVoiceBased()) return;
             if (stdout) {
                 const pages = Util.paginate(stdout as string, 1950);
                 for (const page of pages) {

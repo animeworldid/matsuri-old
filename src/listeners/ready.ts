@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
-import { Presence } from "discord.js";
+import { ChannelType, Presence } from "discord.js";
 import { presenceData } from "../config";
 
 @ApplyOptions<Listener.Options>({
@@ -21,10 +21,10 @@ export class ReadyListener extends Listener {
     private formatString(text: string): string {
         return text
             .replace(/{users.size}/g, (this.container.client.users.cache.size - 1).toString())
-            .replace(/{textChannels.size}/g, this.container.client.channels.cache.filter(ch => ch.type === "GUILD_TEXT").size.toString())
+            .replace(/{textChannels.size}/g, this.container.client.channels.cache.filter(ch => ch.type === ChannelType.GuildText).size.toString())
             .replace(/{guilds.size}/g, this.container.client.guilds.cache.size.toString())
             .replace(/{username}/g, this.container.client.user!.username)
-            .replace(/{voiceChannels.size}/g, this.container.client.channels.cache.filter(ch => ch.type === "GUILD_VOICE").size.toString());
+            .replace(/{voiceChannels.size}/g, this.container.client.channels.cache.filter(ch => ch.type === ChannelType.GuildVoice).size.toString());
     }
 
     private setPresence(random: boolean): Presence {

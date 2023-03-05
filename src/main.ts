@@ -7,9 +7,8 @@ import "dotenv/config";
 import process from "node:process";
 import { devs, isDev, prefix } from "./config.js";
 import { BotClient } from "./structures/BotClient.js";
-import { Intents } from "discord.js";
-import { resolve } from "node:path";
 import { Util } from "./utils/Util.js";
+import { GatewayIntentBits } from "discord.js";
 
 const date = Util.formatDate(Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -20,10 +19,10 @@ const date = Util.formatDate(Intl.DateTimeFormat("en-US", {
 
 const client = new BotClient({
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_PRESENCES
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildPresences
     ],
     loadMessageCommandListeners: true,
     fetchPrefix: () => prefix,
@@ -45,7 +44,6 @@ const client = new BotClient({
             },
             transport: {
                 targets: [
-                    { target: "pino/file", level: "info", options: { destination: resolve(process.cwd(), "logs", `bot-${date}.log`) } },
                     { target: "pino-pretty", level: isDev ? "debug" : "info", options: { translateTime: "SYS:yyyy-mm-dd HH:MM:ss.l o" } }
                 ]
             }

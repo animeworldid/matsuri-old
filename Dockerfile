@@ -1,45 +1,36 @@
-FROM hazmi35/node:16-dev-alpine as build-stage
+FROM ghcr.io/hazmi35/node:18-dev-alpine as build-stage
 
-LABEL name "chitoge (build-stage)"
-LABEL maintainer "Zen <zen@frutbits.org>"
+# Prepare pnpm with corepack (experimental feature)
+RUN corepack enable && corepack prepare pnpm@latest
 
-WORKDIR /tmp/build
+# Copy package.json, lockfile and npm config files
+COPY package.json pnpm-lock.yaml *.npmrc  ./
 
-# Install build tools for node-gyp
-RUN apk add --no-cache build-base git python3
+# Fetch dependencies to virtual store
+RUN pnpm fetch
 
-# Copy package.json and package-lock.json
-COPY package.json .
-COPY package-lock.json .
+# Install dependencies
+RUN pnpm install --offline --frozen-lockfile
 
-# Install node dependencies
-RUN npm install
-
-# Now copy project files
+# Copy Project files
 COPY . .
 
-# Build typescript project
-RUN npm run build
+# Build TypeScript Project
+RUN pnpm run build
 
-# Prune dev dependencies
-RUN npm prune --production
+# Prune devDependencies
+RUN pnpm prune --production
 
 # Get ready for production
-FROM hazmi35/node:16-alpine
+FROM ghcr.io/hazmi35/node:18-alpine
 
 LABEL name "chitoge"
 LABEL maintainer "Zen <zen@frutbits.org>"
 
-WORKDIR /app
-
-# Install dependencies
-RUN apk add --no-cache tzdata
-
-# Copy needed project files
+# Copy needed files
 COPY --from=build-stage /tmp/build/package.json .
-COPY --from=build-stage /tmp/build/package-lock.json .
 COPY --from=build-stage /tmp/build/node_modules ./node_modules
 COPY --from=build-stage /tmp/build/dist ./dist
 
-
-CMD ["node", "--experimental-specifier-resolution=node", "dist/main.js"]
+# Start the app with node
+CMD ["node", "--max-old-space-size=4096", "dist/index.js"]
