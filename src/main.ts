@@ -14,6 +14,7 @@ const client = new BotClient({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildPresences
     ],
     loadMessageCommandListeners: true,
