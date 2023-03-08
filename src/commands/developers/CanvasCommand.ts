@@ -6,7 +6,7 @@ import { AttachmentBuilder, BufferResolvable, EmbedBuilder, Message } from "disc
 import { Util } from "../../utils/Util";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { Canvas as SCanvas } from "canvas-constructor/skia";
+import { Canvas as SCanvas, resolveImage } from "canvas-constructor/skia";
 import { cast } from "@sapphire/utilities";
 
 @ApplyOptions<CommandOptions>({
@@ -47,7 +47,7 @@ export class CanvasCommand extends Command {
         });
 
         try {
-            const avatar = readFileSync(join(process.cwd(), "assets", "images", "dummy_avatar.png"));
+            const avatar = await resolveImage(readFileSync(join(process.cwd(), "assets", "images", "dummy_avatar.png")));
             if (!value.startsWith("new Canvas")) throw new Error("the command cannot execute without new Canvas(high, width)");
             if (!value.includes(".pngAsync()")) value += ".pngAsync()";
 
