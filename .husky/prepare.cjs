@@ -1,3 +1,3 @@
-if (!!process.env.CI === false) {
+if (!process.env.DOCKER) {
     require('husky').install()
 }

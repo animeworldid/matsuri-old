@@ -22,7 +22,7 @@ COPY . .
 RUN pnpm run build
 
 # Prune devDependencies
-RUN pnpm prune --production
+RUN DOCKER=true pnpm prune --production
 
 # Get ready for production
 FROM ghcr.io/hazmi35/node:18-alpine
