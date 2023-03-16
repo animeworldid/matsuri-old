@@ -6,6 +6,9 @@ RUN corepack enable && corepack prepare pnpm@latest
 # Copy package.json, lockfile and npm config files
 COPY package.json pnpm-lock.yaml *.npmrc  ./
 
+# Copy husky folder
+COPY .husky/ ./.husky
+
 # Fetch dependencies to virtual store
 RUN pnpm fetch
 
