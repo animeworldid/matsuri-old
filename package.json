@@ -12,7 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "node --experimental-specifier-resolution=node dist/main",
     "start:dev": "rimraf ./dist && npm run compile && node --experimental-specifier-resolution=node --no-warnings dist/main",
-    "prepare": "node .husky/prepare.cjs"
+    "postinstall": "node .husky/prepare.cjs"
   },
   "repository": {
     "type": "git",
