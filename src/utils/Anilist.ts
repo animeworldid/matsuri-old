@@ -81,7 +81,7 @@ export class Anilist {
       lastPage
       hasNextPage
     }
-    media(search: $title, isAdult: false) {
+    media(search: $title, isAdult: false, type: ANIME) {
         id
         idMal
         startDate {
@@ -124,7 +124,7 @@ export class Anilist {
       lastPage
       hasNextPage
     }
-    media(id: $animeId, isAdult: false) {
+    media(id: $animeId, isAdult: false, type: ANIME) {
         id
         idMal
         startDate {
