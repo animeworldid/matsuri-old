@@ -37,3 +37,7 @@ export enum Images {
     INFORMATION = "https://api.frutbits.org/assets/images/information.png",
     QUESTION_MARK = "https://api.frutbits.org/assets/images/question_mark.png"
 }
+
+export enum SelectMenuCustomIds {
+    Anime = "anime-select"
+}
