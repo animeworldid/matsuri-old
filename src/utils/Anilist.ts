@@ -1,4 +1,4 @@
-import { request } from "https";
+import got, { OptionsOfJSONResponseBody } from "got";
 import moment from "moment";
 
 type AnilistAnimeTitle =
@@ -35,42 +35,24 @@ export interface AnilistAnimePage {
     media: AnilistAnime[];
 }
 
+export interface AnilistResponse {
+    data: {
+        Page: AnilistAnimePage;
+    };
+}
 export class Anilist {
-    public constructor(private readonly token?: string) {
-        this.token = token;
-    }
-
-    public query(query: string, variables: object): Promise<AnilistAnimePage | null> {
-        const headers: Record<string, string> = {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            "Content-Type": "application/json; charset=utf-8",
-            Accept: "application/json"
+    // eslint-disable-next-line class-methods-use-this
+    public async query(query: string, variables: object): Promise<AnilistAnimePage | null> {
+        const options: OptionsOfJSONResponseBody = {
+            headers: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json"
+            },
+            json: { query, variables }
         };
-        const options: Record<string, any> = {
-            hostname: "graphql.anilist.co",
-            port: 443,
-            path: "/",
-            method: "POST",
-            headers
-        };
-        return new Promise((resolve, reject) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            if (this.token) options.headers["Authorization"] = `Bearer ${this.token}`;
-            const req = request(options, res => {
-                let raw = "";
-                res.on("data", chunk => raw += chunk);
-                res.on("end", () => {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    if (res.statusCode! >= 200 && res.statusCode! < 300) return resolve(JSON.parse(raw).data.Page as AnilistAnimePage);
-                    return reject(
-                        new Error("[Anilist] Error while trying to send data to https://graphql.anilist.co," +
-                            `${res.statusCode!.toString()} ${res.statusMessage!.toString()}`)
-                    );
-                });
-            }).on("error", reject);
-            req.write(JSON.stringify({ query, variables: JSON.stringify(variables) }));
-            req.end();
-        });
+        const res: AnilistResponse = await got.post("https://graphql.anilist.co", options).json();
+        return res.data.Page;
     }
 
     public async findAnimeByTitle(title: string): Promise<AnilistAnimePage | null> {
@@ -167,5 +149,10 @@ export class Anilist {
     public static parseAnimeDate(date: Record<string, number | null | undefined> | null): string | null {
         if (!date?.year || !date.month || !date.day) return null;
         return moment({ year: date.year, month: date.month - 1, day: date.day }).format("D MMMM YYYY");
+    }
+
+    public static truncateText(text: string, length: number): string {
+        if (text.length < length + 3) return text;
+        return `${text.slice(0, length + 3)}...`;
     }
 }

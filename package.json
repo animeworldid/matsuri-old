@@ -78,6 +78,7 @@
     "canvas-constructor": "^7.0.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
+    "got": "^12.6.0",
     "moment": "^2.29.4",
     "pino-pretty": "^9.4.0",
     "pretty-ms": "^8.0.0",
