@@ -11,8 +11,9 @@
     "lint": "eslint . --ignore-path .gitignore --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "start": "node --experimental-specifier-resolution=node dist/main",
-    "start:dev": "rimraf ./dist && npm run compile && node --experimental-specifier-resolution=node --no-warnings dist/main",
-    "postinstall": "node .husky/prepare.cjs"
+    "postinstall": "rimraf ./dist && npm run compile && node .husky/prepare.cjs",
+    "watch": "tsc --watch",
+    "start:dev": "run-p watch start"
   },
   "repository": {
     "type": "git",
@@ -65,6 +66,7 @@
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.34.0",
     "husky": "^8.0.3",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^4.4.0",
     "typescript": "^4.7.4"
   },
@@ -73,6 +75,7 @@
     "@sapphire/decorators": "^6.0.0",
     "@sapphire/framework": "^4.2.2",
     "@sapphire/plugin-editable-commands": "^3.0.0",
+    "@sapphire/plugin-hmr": "^2.0.0",
     "@sapphire/result": "^2.6.0",
     "@sapphire/utilities": "^3.11.0",
     "canvas-constructor": "^7.0.0",
