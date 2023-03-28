@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
-import { ColorResolvable, EmbedBuilder } from "discord.js";
+import { Colors, ColorResolvable, EmbedBuilder } from "discord.js";
 import { request } from "https";
 import prettyMilliseconds from "pretty-ms";
-import { embedInfoColor, Emojis } from "../constants";
+import { Emojis } from "../constants";
 import { BotClient } from "../structures/BotClient";
 
 type hexColorsType = "error" | "info" | "success" | "warn";
-const hexColors: Record<hexColorsType, string> = {
-    error: "RED",
-    info: embedInfoColor,
-    success: "GREEN",
-    warn: "YELLOW"
+const hexColors: Record<hexColorsType, number> = {
+    error: Colors.Red,
+    info: Colors.Blue,
+    success: Colors.Green,
+    warn: Colors.Yellow
 };
 
 export class Util {
