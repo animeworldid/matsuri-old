@@ -3,10 +3,9 @@ import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire
 import { ApplicationCommandOptionType, ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
 
 import { guildsToRegister } from "../../config";
-import { Util } from "../../utils/Util";
 import { Anilist } from "../../utils/Anilist";
 import { SelectMenuCustomIds } from "../../constants";
-
+import { AnimeResponseBuilder } from "../../utils/responseBuilder/AnimeResponseBuilder";
 @ApplyOptions<Command.Options>({
     aliases: [],
     name: "anime",
@@ -45,48 +44,7 @@ export class AnimeCommand extends Command {
             const data = await anilist.findAnimeByTitle(animeTitle);
             if (!data) return await interaction.editReply("Nothing found");
             const firstMedia = data.media[0];
-            const animeEmbed = Util.createEmbed("info")
-                .setThumbnail(firstMedia.coverImage.large)
-                .setTitle(firstMedia.title.romaji)
-                .setDescription(Anilist.stripHtmlTag(firstMedia.description ?? "No Description"))
-                .addFields(
-                    {
-                        name: "Status",
-                        value: `${firstMedia.status?.charAt(0).toUpperCase() ?? ""}${firstMedia.status?.slice(1).toLowerCase().replaceAll("_", " ") ?? ""}`,
-                        inline: true
-                    },
-                    {
-                        name: "Genres",
-                        value: firstMedia.genres?.join(", ") ?? "-"
-                    },
-                    {
-                        name: "Start Date",
-                        value: Anilist.parseAnimeDate(firstMedia.startDate) ?? "-",
-                        inline: true
-                    },
-                    {
-                        name: "End Date",
-                        value: Anilist.parseAnimeDate(firstMedia.endDate) ?? "-",
-                        inline: true
-                    },
-                    {
-                        name: "Episodes",
-                        value: firstMedia.episodes?.toString() ?? "-",
-                        inline: true
-                    },
-                    {
-                        name: "Anilist",
-                        value: firstMedia.id ? `https://anilist.co/anime/${firstMedia.id}` : "-"
-                    },
-                    {
-                        name: "MAL",
-                        value: firstMedia.idMal ? `https://myanimelist.net/anime/${firstMedia.idMal}` : "-"
-                    }
-
-                )
-                .setTimestamp()
-                .setFooter({ text: `Replying to: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() });
-            if (data.media.length === 1) return await interaction.editReply({ embeds: [animeEmbed] });
+            if (data.media.length === 1) return await interaction.editReply({ embeds: AnimeResponseBuilder(firstMedia, interaction.user) });
             const rowOptions = data.media.map(currentMedia => {
                 const status = `${currentMedia.status?.charAt(0).toUpperCase() ?? ""}${currentMedia.status?.slice(1).toLowerCase().replaceAll("_", " ") ?? ""}`;
                 const episodes = currentMedia.episodes?.toString() ?? 0;
@@ -105,7 +63,7 @@ export class AnimeCommand extends Command {
                         .setPlaceholder(`Search result: ${data.media.length}`)
                         .addOptions(rowOptions)
                 );
-            return await interaction.editReply({ embeds: [animeEmbed], components: [row] });
+            return await interaction.editReply({ embeds: AnimeResponseBuilder(firstMedia, interaction.user), components: [row] });
         } catch (err) {
             await interaction.editReply({
                 content: "No result found."
