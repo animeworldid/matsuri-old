@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
-import { ColorResolvable, EmbedBuilder } from "discord.js";
+import { Colors, ColorResolvable, EmbedBuilder } from "discord.js";
 import { request } from "https";
 import prettyMilliseconds from "pretty-ms";
 import { embedInfoColor, Emojis } from "../constants";
 import { BotClient } from "../structures/BotClient";
 
 type hexColorsType = "error" | "info" | "success" | "warn";
-const hexColors: Record<hexColorsType, string> = {
-    error: "RED",
+const hexColors: Record<hexColorsType, ColorResolvable> = {
+    error: Colors.Red,
     info: embedInfoColor,
-    success: "GREEN",
-    warn: "YELLOW"
+    success: Colors.Green,
+    warn: Colors.Yellow
 };
 
 export class Util {
@@ -35,7 +35,7 @@ export class Util {
 
     public static createEmbed(type: hexColorsType, message?: string, emoji = false): EmbedBuilder {
         const embed = new EmbedBuilder()
-            .setColor(hexColors[type] as ColorResolvable);
+            .setColor(hexColors[type]);
 
         if (message) embed.setDescription(message);
         if (type === "error" && emoji) embed.setDescription(`${Emojis.NO} **|** ${message!}`);

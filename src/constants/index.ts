@@ -16,7 +16,9 @@ export enum Roles {
 
 export enum Emojis {
     YES = "<:yes:990955540802863104>",
-    NO = "<:no:990955538831536200>"
+    NO = "<:no:990955538831536200>",
+    ANILIST = "<:AW_anilist:931202490584690698>",
+    MAL = "<:Mal:765147564612911104>"
 }
 
 export enum Guild {
@@ -36,4 +38,8 @@ export enum Images {
     AWI_LOGO = "https://api.frutbits.org/assets/images/AWI_Icon.png",
     INFORMATION = "https://api.frutbits.org/assets/images/information.png",
     QUESTION_MARK = "https://api.frutbits.org/assets/images/question_mark.png"
+}
+
+export enum SelectMenuCustomIds {
+    Anime = "anime-select"
 }
