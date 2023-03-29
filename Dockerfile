@@ -9,6 +9,11 @@ COPY package.json pnpm-lock.yaml *.npmrc  ./
 # Copy husky folder
 COPY .husky/ ./.husky
 
+
+# Install dependencies
+RUN apk add --no-cache gcc g++ cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
+
+
 # Fetch dependencies to virtual store
 RUN pnpm fetch
 
@@ -31,7 +36,7 @@ LABEL name "chitoge"
 LABEL maintainer "Zen <zen@frutbits.org>"
 
 # Install dependencies
-RUN apk add --no-cache tzdata fontconfig cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
+RUN apk add --no-cache tzdata fontconfig
 
 # Copy needed files
 COPY --from=build-stage /tmp/build/package.json .
