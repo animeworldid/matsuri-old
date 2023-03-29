@@ -60,12 +60,12 @@
   },
   "devDependencies": {
     "@hazmi35/eslint-config": "^8.7.1",
-    "@types/node": "^18.15.0",
+    "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.34.0",
     "husky": "^8.0.3",
-    "rimraf": "^4.4.0",
+    "rimraf": "^4.4.1",
     "typescript": "^4.7.4"
   },
   "dependencies": {
