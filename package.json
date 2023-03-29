@@ -80,7 +80,7 @@
     "dotenv": "^16.0.3",
     "got": "^12.6.0",
     "moment": "^2.29.4",
-    "pino-pretty": "^9.4.0",
+    "pino-pretty": "^10.0.0",
     "pretty-ms": "^8.0.0",
     "skia-canvas": "^1.0.1",
     "tslib": "^2.5.0"
