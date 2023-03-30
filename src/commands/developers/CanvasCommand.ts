@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-eval */
-import { CommandOptions, Command, Args } from "@sapphire/framework";
+import { Command, ApplicationCommandRegistry, RegisterBehavior, Result } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
-import { AttachmentBuilder, BufferResolvable, EmbedBuilder, Message } from "discord.js";
+import { ApplicationCommandOptionType, AttachmentBuilder, BufferResolvable, EmbedBuilder, Message } from "discord.js";
 import { Util } from "../../utils/Util";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { Canvas as SCanvas, resolveImage } from "canvas-constructor/skia";
+import { Canvas as SCanvas, resolveImage } from "canvas-constructor/napi-rs";
 import { cast } from "@sapphire/utilities";
+import { guildsToRegister } from "../../config";
 
-@ApplyOptions<CommandOptions>({
+@ApplyOptions<Command.Options>({
     aliases: ["cv"],
     name: "canvas",
     description: "Test a canvas-contructor code",
@@ -20,32 +21,42 @@ import { cast } from "@sapphire/utilities";
     requiredClientPermissions: ["SendMessages", "EmbedLinks", "AttachFiles"]
 })
 export class CanvasCommand extends Command {
-    // eslint-disable-next-line class-methods-use-this
-    public async messageRun(message: Message, args: Args): Promise<any> {
-        const Canvas = SCanvas;
-        const input = await args.restResult("string");
-        if (message.channel.isVoiceBased()) return;
-        const ping = Date.now();
-        let value = input.unwrapOr(undefined);
-        if (!value) {
-            return message.channel.send({
-                embeds: [
-                    Util.createEmbed("error", "Please provide a code!", true)
-                ]
-            });
-        }
+    public override registerApplicationCommands(registry: ApplicationCommandRegistry): void {
+        registry.registerChatInputCommand({
+            name: this.name,
+            description: this.description,
+            options: [
+                {
+                    name: "input",
+                    type: ApplicationCommandOptionType.String,
+                    description: "Canvas code",
+                    required: true
+                }
+            ]
+        }, {
+            guildIds: guildsToRegister,
+            behaviorWhenNotIdentical: RegisterBehavior.Overwrite,
+            registerCommandIfMissing: true
+        });
+    }
 
+    // eslint-disable-next-line class-methods-use-this
+    public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
+        const input = interaction.options.getString("input", true);
+        await interaction.deferReply();
+        const Canvas = SCanvas;
+        const ping = Date.now();
         const embed = new EmbedBuilder();
-        let code = `\`\`\`js\n${value}\`\`\``;
+        let code = `\`\`\`js\n${input}\`\`\``;
         if (code.length > 1024) {
-            code = await Util.hastebin(input.unwrapOr(undefined));
+            code = await Util.hastebin(input);
         }
 
         embed.addFields({
             name: "📥 INPUT",
             value: code
         });
-
+        let value = input;
         try {
             const avatar = await resolveImage(readFileSync(join(process.cwd(), "assets", "images", "dummy_avatar.png")));
             if (!value.startsWith("new Canvas")) throw new Error("the command cannot execute without new Canvas(high, width)");
@@ -62,7 +73,7 @@ export class CanvasCommand extends Command {
                 })
                 .setImage("attachment://canvas.png")
                 .setFooter({ text: `⏱️ ${Date.now() - ping}ms` });
-            return await message.channel.send({
+            return await interaction.editReply({
                 embeds: [embed],
                 files: [
                     new AttachmentBuilder(evaled, { name: "canvas.png" })
@@ -78,7 +89,7 @@ export class CanvasCommand extends Command {
                     value: err
                 })
                 .setFooter({ text: `⏱️ ${Date.now() - ping}ms` });
-            return message.channel.send({ embeds: [embed] });
+            return await interaction.editReply({ embeds: [embed] });
         }
     }
 }
