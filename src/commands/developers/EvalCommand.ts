@@ -2,7 +2,7 @@
 /* eslint-disable no-eval */
 import { CommandOptions, Command, Args, ApplicationCommandRegistry, RegisterBehavior } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
-import { ApplicationCommandOptionType, codeBlock, EmbedBuilder, Message } from "discord.js";
+import { ApplicationCommandOptionType, codeBlock, EmbedBuilder, Message, MessagePayload, MessageTarget } from "discord.js";
 import { inspect } from "util";
 import { Util } from "../../utils/Util";
 import { guildsToRegister } from "../../config";
@@ -38,10 +38,31 @@ export class EvalCommand extends Command {
         });
     }
 
-    public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
-        const input = interaction.options.getString("input", true);
-        await interaction.deferReply();
+    // eslint-disable-next-line class-methods-use-this
+    public async messageRun(message: Message, args: Args): Promise<any> {
+        const input = await args.restResult("string");
+        if (message.channel.isVoiceBased()) return;
+        const inputValue = input.unwrapOr(undefined);
+        if (!inputValue) {
+            return message.channel.send({
+                embeds: [
+                    Util.createEmbed("error", "Please provide a code!", true)
+                ]
+            });
+        }
+        const options = await this.commandExec(message, inputValue);
+        return message.channel.send(options);
+    }
 
+    public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
+        await interaction.deferReply();
+        const input = interaction.options.getString("input", true);
+        const options = await this.commandExec(interaction, input);
+        return interaction.editReply(options);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    private async commandExec(target: MessageTarget, input: string): Promise<MessagePayload> {
         const client = this.container.client;
 
         const embed = new EmbedBuilder()
@@ -86,7 +107,7 @@ export class EvalCommand extends Command {
                 value: codeBlock(type)
             });
 
-            if (!isSilent) return await interaction.editReply({ embeds: [embed] });
+            if (!isSilent) return new MessagePayload(target, { embeds: [embed] });
         } catch (e: any) {
             const error = EvalCommand.clean(e as string);
             if (error.length > 1024) {
@@ -101,9 +122,9 @@ export class EvalCommand extends Command {
                     value: `\`\`\`js\n${error}\`\`\``
                 });
             }
-            return await interaction.editReply({ embeds: [embed] });
+            return new MessagePayload(target, { embeds: [embed] });
         }
-        return interaction.editReply(input);
+        return new MessagePayload(target, { content: input });
     }
 
     public static parseType(input: any): string {
