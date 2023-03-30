@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-eval */
-import { CommandOptions, Command, Args } from "@sapphire/framework";
+import { CommandOptions, Command, Args, ApplicationCommandRegistry, RegisterBehavior } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
-import { codeBlock, EmbedBuilder, Message } from "discord.js";
+import { ApplicationCommandOptionType, codeBlock, EmbedBuilder, Message } from "discord.js";
 import { inspect } from "util";
-import { send } from "@sapphire/plugin-editable-commands";
 import { Util } from "../../utils/Util";
+import { guildsToRegister } from "../../config";
 
-@ApplyOptions<CommandOptions>({
+@ApplyOptions<Command.Options>({
     aliases: [],
     name: "eval",
     quotes: [],
@@ -19,27 +19,40 @@ import { Util } from "../../utils/Util";
     requiredClientPermissions: ["SendMessages", "EmbedLinks"]
 })
 export class EvalCommand extends Command {
-    public async messageRun(message: Message, args: Args): Promise<any> {
-        const input = await args.restResult("string");
-        if (input.isErr()) {
-            return send(message, {
-                embeds: [
-                    Util.createEmbed("error", "Please provide a valid input!", true)
-                ]
-            });
-        }
-        const msg = message;
+    public override registerApplicationCommands(registry: ApplicationCommandRegistry): void {
+        registry.registerChatInputCommand({
+            name: this.name,
+            description: this.description,
+            options: [
+                {
+                    name: "input",
+                    type: ApplicationCommandOptionType.String,
+                    description: "Javascript code",
+                    required: true
+                }
+            ]
+        }, {
+            guildIds: guildsToRegister,
+            behaviorWhenNotIdentical: RegisterBehavior.Overwrite,
+            registerCommandIfMissing: true
+        });
+    }
+
+    public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
+        const input = interaction.options.getString("input", true);
+        await interaction.deferReply();
+
         const client = this.container.client;
 
         const embed = new EmbedBuilder()
             .setColor("#00FF00")
             .addFields({
                 name: "Input",
-                value: codeBlock("js", input.unwrap())
+                value: codeBlock("js", input)
             });
 
         try {
-            let code = input.unwrap();
+            let code = input;
             let isSilent = false;
             if (code.includes("--silent")) {
                 isSilent = true;
@@ -73,7 +86,7 @@ export class EvalCommand extends Command {
                 value: codeBlock(type)
             });
 
-            if (!isSilent) return await send(message, { embeds: [embed] });
+            if (!isSilent) return await interaction.editReply({ embeds: [embed] });
         } catch (e: any) {
             const error = EvalCommand.clean(e as string);
             if (error.length > 1024) {
@@ -88,9 +101,9 @@ export class EvalCommand extends Command {
                     value: `\`\`\`js\n${error}\`\`\``
                 });
             }
-            return await send(message, { embeds: [embed] });
+            return await interaction.editReply({ embeds: [embed] });
         }
-        return message;
+        return interaction.editReply(input);
     }
 
     public static parseType(input: any): string {
