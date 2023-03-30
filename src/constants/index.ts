@@ -1,12 +1,12 @@
 export const embedInfoColor = "#328FFF";
-/* export const autoRole = [
+export const autoRole = [
     "520219060630323201",
     "800230334759043072",
     "640138022427295746",
     "800230330690306048",
     "694217451004493876",
     "637279136343261184"
-]; */
+];
 
 export enum Roles {
     BOOSTER = "626710421654732800",
