@@ -22,8 +22,7 @@ export class AvatarCommand extends Command {
                 {
                     name: "user",
                     type: ApplicationCommandOptionType.User,
-                    description: "User to view",
-                    required: true
+                    description: "User to view"
                 }
             ]
         }, {
@@ -35,7 +34,7 @@ export class AvatarCommand extends Command {
 
     // eslint-disable-next-line class-methods-use-this
     public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
-        const user = interaction.options.getUser("user", true);
+        const user = interaction.options.getUser("user") ?? interaction.user;
         const embed = Util.createEmbed("info")
             .setImage(user.displayAvatarURL({ extension: "png", size: 4096 }))
             .setAuthor({ name: `${user.username}'s avatar` })

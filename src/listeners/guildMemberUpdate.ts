@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import { GuildMember } from "discord.js";
-import { Roles, Guild, Channels } from "../constants";
+import { Roles, Guild, Channels, autoRole } from "../constants";
 
 @ApplyOptions<Listener.Options>({
     event: "guildMemberUpdate"
@@ -11,19 +11,33 @@ export class GuildMemberUpdateListener extends Listener {
     public async run(oldMember: GuildMember, newMember: GuildMember): Promise<any> {
         if (newMember.guild.id === Guild.PRIMARY) {
             /**
+             * Add default roles upon join and pass screening
+             */
+            if (oldMember.pending && !newMember.pending) {
+                return newMember.roles.add(autoRole);
+            }
+
+            /**
              * Check if member boosted the server
              */
-            const hadRole = oldMember.roles.cache.has(Roles.BOOSTER);
-            const hasRole = newMember.roles.cache.has(Roles.BOOSTER);
+            const wasBoosting = oldMember.roles.cache.has(Roles.BOOSTER);
+            const isBoosting = newMember.roles.cache.has(Roles.BOOSTER);
             const isPremium = newMember.roles.cache.has(Roles.PREMIUM);
+            const wasDonator = oldMember.roles.cache.has(Roles.DONATOR);
             const isDonator = newMember.roles.cache.has(Roles.DONATOR);
-            if (!hadRole && hasRole) {
-                const channel = await newMember.guild.channels.fetch(Channels.BOOSTER_NOTIFICATION);
-                if (channel?.isTextBased() && !channel.isVoiceBased()) await channel.send(`Thank you ${newMember.user.toString()} for boosting Anime World Indonesia!`);
-                if (!isPremium) await newMember.roles.add(Roles.PREMIUM, "Add AWI Premium after boosting");
-            } else if (hadRole && !hasRole && isPremium && !isDonator) {
-                await newMember.roles.remove(Roles.PREMIUM, "Removed AWI Premium after losing boost");
+
+            if (!wasBoosting && isBoosting) {
+                const notifChannel = await newMember.guild.channels.fetch(Channels.BOOSTER_NOTIFICATION);
+                if (notifChannel?.isTextBased() && !notifChannel.isVoiceBased()) await notifChannel.send(`Thank you ${newMember.user.toString()} for boosting Anime World Indonesia!`);
+                if (!isPremium) return newMember.roles.add(Roles.PREMIUM, "Add AWI Premium after boosting");
+            } else if (!isPremium && !wasDonator && isDonator) {
+                await newMember.roles.add(Roles.PREMIUM, "Add AWI Premium after boosting");
+            } else if (wasBoosting && !isBoosting) {
+                if (!isDonator) return newMember.roles.remove(Roles.PREMIUM, "Removed AWI Premium after losing boost");
+            } else if (wasDonator && !isDonator) {
+                if (!isBoosting) return newMember.roles.remove(Roles.PREMIUM, "Removed AWI Premium after donation expired");
             }
         }
     }
 }
+
