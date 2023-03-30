@@ -1,6 +1,7 @@
 // Sapphire Plugins
 import "@frutbits/pino-logger/register";
 import "@sapphire/plugin-editable-commands/register";
+import "@sapphire/plugin-hmr/register";
 
 import { BucketScope } from "@sapphire/framework";
 import "dotenv/config";
@@ -41,6 +42,9 @@ const client = new BotClient({
                 ]
             }
         }
+    },
+    hmr: {
+        enabled: isDev
     }
 });
 
