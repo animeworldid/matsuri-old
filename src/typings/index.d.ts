@@ -10,6 +10,7 @@ export interface IPresenceData {
 declare module "@sapphire/framework" {
     export interface Preconditions {
         ownerOnly: never;
+        adminOnly: never;
     }
 }
 

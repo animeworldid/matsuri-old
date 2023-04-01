@@ -11,7 +11,8 @@ export const autoRole = [
 export enum Roles {
     BOOSTER = "626710421654732800",
     PREMIUM = "733634632800665651",
-    DONATOR = "919783888631504946"
+    DONATOR = "919783888631504946",
+    ADMIN = "800017811052429322"
 }
 
 export enum Emojis {
