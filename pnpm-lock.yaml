@@ -52,8 +52,8 @@ dependencies:
 
 devDependencies:
   '@hazmi35/eslint-config':
-    specifier: ^8.7.1
-    version: 8.7.1(@typescript-eslint/eslint-plugin@5.53.0)(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@5.0.3)
+    specifier: ^9.0.0
+    version: 9.0.0(@eslint/js@8.37.0)(@typescript-eslint/eslint-plugin@5.53.0)(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@5.0.3)
   '@types/node':
     specifier: ^18.15.11
     version: 18.15.11
@@ -159,6 +159,11 @@ packages:
       - supports-color
     dev: true
 
+  /@eslint/js@8.37.0:
+    resolution: {integrity: sha512-x5vzdtOOGgFVDCUs81QRB2+liax8rFg3+7hqM+QhBG0/G3F1ZsoYl97UrqgHgQ9KKT7G6c4V+aTUCgu/n22v1A==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: true
+
   /@frutbits/pino-logger@3.3.0:
     resolution: {integrity: sha512-2SAyhzvqL6MELMRcwXvsrFDNJwyhQ6/RVJ1t3USCDj8YvCO/dhXXPNp27+88/fKynVRRw8E7dJMRNC8NXVHbJw==}
     engines: {node: '>=16.6.0', npm: '>=7.0.0'}
@@ -171,13 +176,14 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@hazmi35/eslint-config@8.7.1(@typescript-eslint/eslint-plugin@5.53.0)(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@5.0.3):
-    resolution: {integrity: sha512-J5RxP4DhtTXn2GeABYyN0hG/TFCklue7CvSM1U8mMwlc6Zr1FNajjdFUY+DYjwzEfaaIzWMECzURDRsaRJL4/w==}
+  /@hazmi35/eslint-config@9.0.0(@eslint/js@8.37.0)(@typescript-eslint/eslint-plugin@5.53.0)(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@5.0.3):
+    resolution: {integrity: sha512-byI1+bjlNxs+qvGiKS6+qEwUzWeBUm+WpP9xNE6rYQd1KW8isCgJY8Qrg2B5QrkCPBYVs+TN4up/guZ7Rxtdyg==}
     peerDependencies:
-      '@typescript-eslint/eslint-plugin': '>=5.45.1'
-      '@typescript-eslint/parser': '>=5.45.1'
-      eslint: '>=8.29.0'
-      typescript: '>=3.3.1 <5.0.0'
+      '@eslint/js': '>=8.36.0'
+      '@typescript-eslint/eslint-plugin': '>=5.55.0'
+      '@typescript-eslint/parser': '>=5.55.0'
+      eslint: '>=8.36.0'
+      typescript: '>=3.3.1 <5.1.0'
     peerDependenciesMeta:
       '@typescript-eslint/eslint-plugin':
         optional: true
@@ -186,6 +192,7 @@ packages:
       typescript:
         optional: true
     dependencies:
+      '@eslint/js': 8.37.0
       '@typescript-eslint/eslint-plugin': 5.53.0(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@5.0.3)
       '@typescript-eslint/parser': 5.53.0(eslint@8.34.0)(typescript@5.0.3)
       eslint: 8.34.0
