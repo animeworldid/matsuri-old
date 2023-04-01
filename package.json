@@ -62,10 +62,10 @@
   "devDependencies": {
     "@hazmi35/eslint-config": "^9.0.0",
     "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "concurrently": "^8.0.1",
-    "eslint": "^8.34.0",
+    "eslint": "^8.37.0",
     "husky": "^8.0.3",
     "rimraf": "^4.4.1",
     "typescript": "^5.0.3"
