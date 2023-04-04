@@ -1,11 +1,13 @@
 export const embedInfoColor = "#328FFF";
 export const autoRole = [
-    "520219060630323201",
-    "800230334759043072",
-    "640138022427295746",
-    "800230330690306048",
-    "694217451004493876",
-    "637279136343261184"
+    "520219060630323201",   // Member
+    "800230334759043072",   // -- Status --
+    "640138022427295746",   // Anime-Manga
+    "800230330690306048",   // -- Ping --
+    "694217451004493876",   // Event-Ping
+    "637279136343261184",   // Announcement | Updates
+    "1032447474268373107",  // Question of the Week
+    "696586733286064128"    // Anime-Moments
 ];
 
 export enum Roles {
@@ -27,7 +29,6 @@ export enum Guild {
 }
 
 export enum Channels {
-    // SUGGESTION = "799607782071992330",
     BOOSTER_NOTIFICATION = "643734634722623509",
     ECHO_LOG = "1091767790739923024"
 }
