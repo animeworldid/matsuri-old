@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import { GuildMember } from "discord.js";
-import { Roles, Guild, Channels, autoRole } from "../constants";
+import { Roles, Guild, autoRole } from "../constants";
 
 @ApplyOptions<Listener.Options>({
     event: "guildMemberUpdate"
@@ -27,11 +27,9 @@ export class GuildMemberUpdateListener extends Listener {
             const isDonator = newMember.roles.cache.has(Roles.DONATOR);
 
             if (!wasBoosting && isBoosting) {
-                const notifChannel = await newMember.guild.channels.fetch(Channels.BOOSTER_NOTIFICATION);
-                if (notifChannel?.isTextBased() && !notifChannel.isVoiceBased()) await notifChannel.send(`Thank you ${newMember.user.toString()} for boosting Anime World Indonesia!`);
                 if (!isPremium) return newMember.roles.add(Roles.PREMIUM, "Add AWI Premium after boosting");
             } else if (!isPremium && !wasDonator && isDonator) {
-                await newMember.roles.add(Roles.PREMIUM, "Add AWI Premium after boosting");
+                await newMember.roles.add(Roles.PREMIUM, "Add AWI Premium after donating");
             } else if (wasBoosting && !isBoosting) {
                 if (!isDonator) return newMember.roles.remove(Roles.PREMIUM, "Removed AWI Premium after losing boost");
             } else if (wasDonator && !isDonator) {
