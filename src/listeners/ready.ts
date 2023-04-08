@@ -18,7 +18,7 @@ export class ReadyListener extends Listener {
         "{textChannels.size} text channels and {voiceChannels.size} voice channels!"));
 
         if (amqpUrl !== undefined) {
-            const payload = this.container.client.util.fetchStaff();
+            const payload = this.container.client.util.fetchMembership();
             this.container.client.amqpWebsite.publish("", "MEMBERSHIP_UPDATE", payload);
         }
     }

@@ -1,4 +1,23 @@
 export const embedInfoColor = "#328FFF";
+export const membershipRoles = [
+    {
+        id: "925682331426119721",
+        title: "Member of the Month"
+    },
+    {
+        id: "733634632800665651",
+        title: "Supporter"
+    },
+    {
+        id: "871264479399247914",
+        title: "Otaku Expert"
+    },
+    {
+        id: "1053635289328910467",
+        title: "Party Scoring"
+    }
+];
+
 export const staffRoles = [
     {
         id: "630848202035429436",
