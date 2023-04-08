@@ -2,7 +2,7 @@
 import { Colors, ColorResolvable, EmbedBuilder, GuildMember } from "discord.js";
 import { request } from "https";
 import prettyMilliseconds from "pretty-ms";
-import { embedInfoColor, Emojis, Guild, staffRoles } from "../constants";
+import { embedInfoColor, Emojis, Guild, membershipRoles, staffRoles } from "../constants";
 import { BotClient } from "../structures/BotClient";
 import { MembershipPayload } from "../typings";
 
@@ -17,11 +17,11 @@ const hexColors: Record<hexColorsType, ColorResolvable> = {
 export class Util {
     public constructor(public readonly client: BotClient) {}
 
-    public fetchStaff(): { members: MembershipPayload[] }[] & typeof staffRoles {
+    public fetchMembership(): Record<"members" | "staff", { members: MembershipPayload[] }[] & typeof membershipRoles & typeof staffRoles> {
         const guild = this.client.guilds.cache.get(Guild.Primary);
         if (!guild) {
             this.client.logger.warn("Trying to fetch staff but the guild isn't present");
-            return [];
+            return { staff: [], members: [] };
         }
 
         const makePayload = (member: GuildMember): MembershipPayload => ({
@@ -38,7 +38,13 @@ export class Util {
                 .filter(m => !m.user.bot).map(m => makePayload(m))
         }));
 
-        return staff;
+        const members = membershipRoles.map(r => ({
+            ...r,
+            members: guild.roles.cache.get(r.id)!.members
+                .filter(m => !m.user.bot).map(m => makePayload(m))
+        }));
+
+        return { staff, members };
     }
 
     public static formatDate(dateFormat: Intl.DateTimeFormat, date: Date | number = new Date()): string {
