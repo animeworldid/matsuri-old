@@ -31,7 +31,7 @@ RUN DOCKER=true pnpm prune --production
 FROM ghcr.io/hazmi35/node:18-alpine
 
 LABEL name "matsuri"
-LABEL maintainer "Anime World Indonesia <contact@animeworld.moe>"
+LABEL maintainer "Anime World Indonesia <dev@animeworld.moe>"
 
 # Install dependencies
 RUN apk add --no-cache tzdata fontconfig
