@@ -17,6 +17,7 @@ export class BotClient extends SapphireClient {
         if (amqpUrl !== undefined) {
             const { channel } = await createAmqp(amqpUrl);
             this.amqpWebsite = new RoutingPublisher(channel);
+            await this.amqpWebsite.init({ durable: true, name: "WEBSITE", exchangeType: "topic", useExchangeBinding: true });
         }
 
         return super.login(token);
