@@ -1,4 +1,30 @@
 export const embedInfoColor = "#328FFF";
+export const staffRoles = [
+    {
+        id: "630848202035429436",
+        title: "Head Administrator"
+    },
+    {
+        id: "800017811052429322",
+        title: "Server Administrator"
+    },
+    {
+        id: "1081805429551673354",
+        title: "Developer"
+    },
+    {
+        id: "767710868665663498",
+        title: "Design Team"
+    },
+    {
+        id: "935181095413092382",
+        title: "Public Manager"
+    },
+    {
+        id: "662330143888637962",
+        title: "Helper"
+    }
+];
 export const autoRole = [
     "520219060630323201",   // Member
     "800230334759043072",   // -- Status --

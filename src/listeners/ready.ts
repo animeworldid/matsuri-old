@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import { ChannelType, Presence } from "discord.js";
-import { presenceData } from "../config";
+import { amqpUrl, presenceData } from "../config";
 
 @ApplyOptions<Listener.Options>({
     once: true,
@@ -16,6 +16,11 @@ export class ReadyListener extends Listener {
         this.doPresence();
         this.container.client.logger.info(this.formatString("{username} is ready to serve {users.size} users on {guilds.size} guilds in " +
         "{textChannels.size} text channels and {voiceChannels.size} voice channels!"));
+
+        if (amqpUrl !== undefined) {
+            const payload = this.container.client.util.fetchStaff();
+            this.container.client.amqpWebsite.publish("", "MEMBERSHIP_UPDATE", payload);
+        }
     }
 
     private formatString(text: string): string {

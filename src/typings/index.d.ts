@@ -1,6 +1,14 @@
 import { ActivityOptions, ClientPresenceStatus } from "discord.js";
 import { Util as AdditionalUtil } from "../utils/Util";
 
+export interface MembershipPayload {
+    avatarURL: string;
+    id: string;
+    username: string;
+    discriminator: string;
+    color: string;
+}
+
 export interface IPresenceData {
     activities: ActivityOptions[];
     status: ClientPresenceStatus[];
