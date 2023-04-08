@@ -1,5 +1,5 @@
 {
-  "name": "@animeworldindonesia/chitoge",
+  "name": "@animeworldid/matsuri",
   "private": "true",
   "version": "1.0.0",
   "description": "A useful Discord bot for Anime World Indonesia",
@@ -17,16 +17,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Anime-World-Indonesia/chitoge.git"
+    "url": "git+https://github.com/animeworldid/matsuri.git"
   },
   "keywords": [
     "js",
     "typescript"
   ],
-  "author": "Zen <zen@frutbits.org>",
+  "author": "Anime World Indonesia <dev@animeworld.moe>",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/Anime-World-Indonesia/chitoge/issues"
+    "url": "https://github.com/animeworldid/matsuri/issues"
   },
   "engines": {
     "node": ">=16.6.0",

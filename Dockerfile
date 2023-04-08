@@ -9,10 +9,8 @@ COPY package.json pnpm-lock.yaml *.npmrc  ./
 # Copy husky folder
 COPY .husky/ ./.husky
 
-
 # Install dependencies
 RUN apk add --no-cache gcc g++ cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
-
 
 # Fetch dependencies to virtual store
 RUN pnpm fetch
@@ -32,8 +30,8 @@ RUN DOCKER=true pnpm prune --production
 # Get ready for production
 FROM ghcr.io/hazmi35/node:18-alpine
 
-LABEL name "chitoge"
-LABEL maintainer "Zen <zen@frutbits.org>"
+LABEL name "matsuri"
+LABEL maintainer "Anime World Indonesia <dev@animeworld.moe>"
 
 # Install dependencies
 RUN apk add --no-cache tzdata fontconfig
