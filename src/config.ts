@@ -5,6 +5,7 @@ export const devs: string[] = JSON.parse(process.env.CONFIG_DEVS ?? "[]");
 export const guildsToRegister = JSON.parse(process.env.CONFIG_GUILD_TO_REGISTER ?? "[]");
 export const isDev = process.env.NODE_ENV === "DEVELOPMENT";
 export const prefix = process.env.CONFIG_PREFIX!;
+export const amqpUrl = process.env.AMQP_URL;
 export const presenceData: IPresenceData = {
     activities: [
         { name: "discord.gg/otakuid", type: ActivityType.Watching }

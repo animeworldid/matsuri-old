@@ -2,6 +2,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import { GuildMember } from "discord.js";
 import { Roles, Guild, autoRole } from "../constants";
+import { amqpUrl } from "../config";
 
 @ApplyOptions<Listener.Options>({
     event: "guildMemberUpdate"
@@ -34,6 +35,13 @@ export class GuildMemberUpdateListener extends Listener {
                 if (!isDonator) return newMember.roles.remove(Roles.Premium, "Removed AWI Premium after losing boost");
             } else if (wasDonator && !isDonator) {
                 if (!isBoosting) return newMember.roles.remove(Roles.Premium, "Removed AWI Premium after donation expired");
+            }
+
+            if (oldMember.roles.cache.size !== newMember.roles.cache.size) {
+                if (amqpUrl !== undefined) {
+                    const payload = this.container.client.util.fetchStaff();
+                    this.container.client.amqpWebsite.publish("", "MEMBERSHIP_UPDATE", payload);
+                }
             }
         }
     }
