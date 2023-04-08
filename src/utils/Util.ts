@@ -38,8 +38,8 @@ export class Util {
             .setColor(hexColors[type]);
 
         if (message) embed.setDescription(message);
-        if (type === "error" && emoji) embed.setDescription(`${Emojis.NO} **|** ${message!}`);
-        if (type === "success" && emoji) embed.setDescription(`${Emojis.YES} **|** ${message!}`);
+        if (type === "error" && emoji) embed.setDescription(`${Emojis.No} **|** ${message!}`);
+        if (type === "success" && emoji) embed.setDescription(`${Emojis.Yes} **|** ${message!}`);
         return embed;
     }
 

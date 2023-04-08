@@ -6,7 +6,7 @@ import { Emojis } from "../../constants";
 
 export function AnimeResponseBuilder(data: AnilistAnime, user: User): EmbedBuilder[] {
     const externalLink = [
-        hyperlink(`${Emojis.ANILIST} AniList`, `https://anilist.co/anime/${data.id}`),
+        hyperlink(`${Emojis.Anilist} AniList`, `https://anilist.co/anime/${data.id}`),
         hyperlink(`${Emojis.MAL} MyAnimeList`, `https://myanimelist.net/anime/${data.idMal ?? ""}`)
     ].join(" | ");
     const animeEmbed = Util.createEmbed("info")

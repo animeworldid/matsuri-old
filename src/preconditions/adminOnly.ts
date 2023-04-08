@@ -18,7 +18,7 @@ export class adminOnly extends Precondition {
     }
 
     private isAdmin(user: GuildMember | undefined): PreconditionResult {
-        if (!user) return this.error({ message: `Only <&${Roles.ADMIN}> can do this` });
-        return user.roles.cache.has(Roles.ADMIN) ? this.ok() : this.error({ message: `Only <&${Roles.ADMIN}> can do this` });
+        if (!user) return this.error({ message: `Only <&${Roles.Admin}> can do this` });
+        return user.roles.cache.has(Roles.Admin) ? this.ok() : this.error({ message: `Only <&${Roles.Admin}> can do this` });
     }
 }

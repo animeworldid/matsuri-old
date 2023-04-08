@@ -29,7 +29,7 @@ export class StatisticCommand extends Command {
 
     public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<any> {
         const embed = Util.createEmbed("info")
-            .setThumbnail(Images.AWI_LOGO)
+            .setThumbnail(Images.AWILogo)
             .setAuthor({ name: `${this.container.client.user!.username} - Bot Statistic`, iconURL: this.container.client.user?.displayAvatarURL() })
             .addFields(
                 {
