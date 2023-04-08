@@ -73,6 +73,7 @@
   "dependencies": {
     "@frutbits/pino-logger": "^3.3.0",
     "@napi-rs/canvas": "^0.1.39",
+    "@nezuchan/cordis-brokers": "^2.0.0",
     "@sapphire/decorators": "^6.0.0",
     "@sapphire/framework": "^4.2.2",
     "@sapphire/plugin-editable-commands": "^3.0.1",

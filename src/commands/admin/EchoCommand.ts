@@ -52,7 +52,7 @@ export class ExecCommand extends Command {
         const channel = interaction.options.getChannel("channel")?.id ?? interaction.channelId;
         const replyToId = interaction.options.getString("reply_to");
         const textChannel = await interaction.client.channels.fetch(channel) as TextChannel;
-        const logChannel = await interaction.client.channels.fetch(Channels.ECHO_LOG) as TextChannel;
+        const logChannel = await interaction.client.channels.fetch(Channels.EchoLog) as TextChannel;
         const fields: APIEmbedField[] = [];
         fields.push({ name: "#️⃣ Channel", value: `<#${textChannel.id}>`, inline: true });
         let isSent = false;
