@@ -17,7 +17,7 @@ const hexColors: Record<hexColorsType, ColorResolvable> = {
 export class Util {
     public constructor(public readonly client: BotClient) {}
 
-    public fetchMembership(): Record<"members" | "staff", { members: MembershipPayload[] }[] & typeof membershipRoles & typeof staffRoles> {
+    public fetchMembership(): Record<"members" | "staff", { icon: string | null; members: MembershipPayload[] }[] & typeof membershipRoles & typeof staffRoles> {
         const guild = this.client.guilds.cache.get(Guild.Primary);
         if (!guild) {
             this.client.logger.warn("Trying to fetch staff but the guild isn't present");
@@ -34,12 +34,14 @@ export class Util {
 
         const staff = staffRoles.map(r => ({
             ...r,
+            icon: guild.roles.cache.get(r.id)?.iconURL() ?? null,
             members: guild.roles.cache.get(r.id)!.members
                 .filter(m => !m.user.bot).map(m => makePayload(m))
         }));
 
         const members = membershipRoles.map(r => ({
             ...r,
+            icon: guild.roles.cache.get(r.id)?.iconURL() ?? null,
             members: guild.roles.cache.get(r.id)!.members
                 .filter(m => !m.user.bot).map(m => makePayload(m))
         }));
