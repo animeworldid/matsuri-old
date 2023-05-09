@@ -35,6 +35,7 @@ export class Util {
         const staff = staffRoles.map(r => ({
             ...r,
             icon: guild.roles.cache.get(r.id)?.iconURL() ?? null,
+            color: guild.roles.cache.get(r.id)?.hexColor,
             members: guild.roles.cache.get(r.id)!.members
                 .filter(m => !m.user.bot).map(m => makePayload(m))
         }));
@@ -42,6 +43,7 @@ export class Util {
         const members = membershipRoles.map(r => ({
             ...r,
             icon: guild.roles.cache.get(r.id)?.iconURL() ?? null,
+            color: guild.roles.cache.get(r.id)?.hexColor,
             members: guild.roles.cache.get(r.id)!.members
                 .filter(m => !m.user.bot).map(m => makePayload(m))
         }));
