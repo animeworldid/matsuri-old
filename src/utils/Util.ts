@@ -17,6 +17,14 @@ const hexColors: Record<hexColorsType, ColorResolvable> = {
 export class Util {
     public constructor(public readonly client: BotClient) {}
 
+    public publishPrimaryGuildStats(): boolean {
+        const primaryGuild = this.client.guilds.cache.get(Guild.Primary);
+        return this.client.amqpWebsite.publish("", "PRIMARY_GUILD_STATS_UPDATE", {
+            memberCount: primaryGuild?.memberCount ?? 0,
+            boostLevel: primaryGuild?.premiumTier
+        });
+    }
+
     public fetchMembership(): Record<"members" | "staff", { icon: string | null; members: MembershipPayload[] }[] & typeof membershipRoles & typeof staffRoles> {
         const guild = this.client.guilds.cache.get(Guild.Primary);
         if (!guild) {
