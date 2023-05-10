@@ -2,46 +2,56 @@ export const embedInfoColor = "#328FFF";
 export const membershipRoles = [
     {
         id: "925682331426119721",
-        title: "Member of the Month"
+        title: "Member of the Month",
+        color: "#28fce4"
     },
     {
         id: "733634632800665651",
-        title: "Supporter"
+        title: "Supporter",
+        color: "#ff4083"
     },
     {
         id: "871264479399247914",
-        title: "Otaku Expert"
+        title: "Otaku Expert",
+        color: "#ffe08a"
     },
     {
         id: "1053635289328910467",
-        title: "Party Scoring"
+        title: "Party Scoring",
+        color: "#b3f2ce"
     }
 ];
 
 export const staffRoles = [
     {
         id: "630848202035429436",
-        title: "Head Administrator"
+        title: "Head Administrator",
+        color: "#FF5D5D"
     },
     {
         id: "800017811052429322",
-        title: "Server Administrator"
+        title: "Server Administrator",
+        color: "#5df2fc"
     },
     {
         id: "1081805429551673354",
-        title: "Developer"
+        title: "Developer",
+        color: "#0467c4"
     },
     {
         id: "767710868665663498",
-        title: "Design Team"
+        title: "Design Team",
+        color: "#5c69db"
     },
     {
         id: "935181095413092382",
-        title: "Public Manager"
+        title: "Public Manager",
+        color: "#e85ef2"
     },
     {
         id: "662330143888637962",
-        title: "Helper"
+        title: "Helper",
+        color: "#c5ffad"
     }
 ];
 export const autoRole = [
