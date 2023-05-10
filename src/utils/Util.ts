@@ -24,7 +24,7 @@ export class Util {
             return { staff: [], members: [] };
         }
 
-        const makePayload = (member: GuildMember): MembershipPayload => ({
+        const createMemberPayload = (member: GuildMember): MembershipPayload => ({
             avatarURL: member.user.displayAvatarURL({ extension: "webp", size: 4096 }),
             id: member.user.id,
             username: member.user.username,
@@ -32,21 +32,15 @@ export class Util {
             color: member.displayHexColor
         });
 
-        const staff = staffRoles.map(r => ({
+        const createRolePayload = (r: typeof staffRoles[0]): any => ({
             ...r,
             icon: guild.roles.cache.get(r.id)?.iconURL() ?? null,
-            color: guild.roles.cache.get(r.id)?.hexColor,
             members: guild.roles.cache.get(r.id)!.members
-                .filter(m => !m.user.bot).map(m => makePayload(m))
-        }));
+                .filter(m => !m.user.bot).map(m => createMemberPayload(m))
+        });
 
-        const members = membershipRoles.map(r => ({
-            ...r,
-            icon: guild.roles.cache.get(r.id)?.iconURL() ?? null,
-            color: guild.roles.cache.get(r.id)?.hexColor,
-            members: guild.roles.cache.get(r.id)!.members
-                .filter(m => !m.user.bot).map(m => makePayload(m))
-        }));
+        const staff = staffRoles.map(createRolePayload);
+        const members = membershipRoles.map(createRolePayload);
 
         return { staff, members };
     }
