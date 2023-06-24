@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import { ChannelType, Presence } from "discord.js";
-import { amqpUrl, presenceData } from "../config";
+import { amqpUrl, presenceData } from "../config.js";
 
 @ApplyOptions<Listener.Options>({
     once: true,

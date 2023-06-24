@@ -1,8 +1,8 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
 import { ActivityType, ApplicationCommandOptionType } from "discord.js";
-import { guildsToRegister } from "../../config";
-import { Util } from "../../utils/Util";
+import { guildsToRegister } from "../../config.js";
+import { Util } from "../../utils/Util.js";
 
 @ApplyOptions<Command.Options>({
     aliases: ["infouser", "user", "users", "uinfo"],

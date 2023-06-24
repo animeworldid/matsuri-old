@@ -4,8 +4,8 @@ import { CommandOptions, Command, Args, ApplicationCommandRegistry, RegisterBeha
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandOptionType, codeBlock, EmbedBuilder, Message, MessagePayload, MessageTarget } from "discord.js";
 import { inspect } from "util";
-import { Util } from "../../utils/Util";
-import { guildsToRegister } from "../../config";
+import { Util } from "../../utils/Util.js";
+import { guildsToRegister } from "../../config.js";
 
 @ApplyOptions<Command.Options>({
     aliases: [],

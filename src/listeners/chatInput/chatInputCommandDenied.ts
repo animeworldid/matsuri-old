@@ -1,6 +1,6 @@
 import { Events, Listener, UserError, ChatInputCommandDeniedPayload, Identifiers } from "@sapphire/framework";
 import { InteractionReplyOptions, PermissionsString } from "discord.js";
-import { Util } from "../../utils/Util";
+import { Util } from "../../utils/Util.js";
 
 export class ChatInputCommandDeniedListener extends Listener<typeof Events.ChatInputCommandDenied> {
     // eslint-disable-next-line class-methods-use-this

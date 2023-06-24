@@ -1,10 +1,10 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
 import { version } from "discord.js";
-import { guildsToRegister } from "../../config";
-import { Util } from "../../utils/Util";
+import { guildsToRegister } from "../../config.js";
+import { Util } from "../../utils/Util.js";
 import { cpus, uptime } from "os";
-import { Images } from "../../constants";
+import { Images } from "../../constants/index.js";
 import { join } from "path";
 import { readFileSync } from "fs";
 import { cast } from "@sapphire/utilities";

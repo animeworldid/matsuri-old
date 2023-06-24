@@ -2,9 +2,9 @@
 import { Colors, ColorResolvable, EmbedBuilder, GuildMember } from "discord.js";
 import { request } from "https";
 import prettyMilliseconds from "pretty-ms";
-import { embedInfoColor, Emojis, Guild, membershipRoles, staffRoles } from "../constants";
-import { BotClient } from "../structures/BotClient";
-import { MembershipPayload } from "../typings";
+import { embedInfoColor, Emojis, Guild, membershipRoles, staffRoles } from "../constants/index.js";
+import { BotClient } from "../structures/BotClient.js";
+import { MembershipPayload } from "../typings/index.js";
 
 type hexColorsType = "error" | "info" | "success" | "warn";
 const hexColors: Record<hexColorsType, ColorResolvable> = {

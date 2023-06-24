@@ -2,9 +2,9 @@
 import { CommandOptions, Command, ApplicationCommandRegistry, RegisterBehavior } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandOptionType } from "discord.js";
-import { Util } from "../../utils/Util";
+import { Util } from "../../utils/Util.js";
 import { exec } from "child_process";
-import { guildsToRegister } from "../../config";
+import { guildsToRegister } from "../../config.js";
 
 @ApplyOptions<CommandOptions>({
     aliases: [],

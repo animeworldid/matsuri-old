@@ -1,9 +1,9 @@
 import { InteractionHandler, InteractionHandlerTypes } from "@sapphire/framework";
 import { StringSelectMenuInteraction } from "discord.js";
 import { ApplyOptions } from "@sapphire/decorators";
-import { Anilist, AnilistAnime } from "../../utils/Anilist";
-import { SelectMenuCustomIds } from "../../constants";
-import { AnimeResponseBuilder } from "../../utils/responseBuilder/AnimeResponseBuilder";
+import { Anilist, AnilistAnime } from "../../utils/Anilist.js";
+import { SelectMenuCustomIds } from "../../constants/index.js";
+import { AnimeResponseBuilder } from "../../utils/responseBuilder/AnimeResponseBuilder.js";
 @ApplyOptions<InteractionHandler.Options>({
     interactionHandlerType: InteractionHandlerTypes.SelectMenu
 })

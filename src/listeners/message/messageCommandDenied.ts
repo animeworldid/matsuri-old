@@ -2,7 +2,7 @@
 import { Events, Identifiers, Listener, MessageCommandDeniedPayload, UserError } from "@sapphire/framework";
 import { cast } from "@sapphire/utilities";
 import { APIEmbed, ChannelType, MessageCreateOptions, PermissionsString, TextChannel } from "discord.js";
-import { Util } from "../../utils/Util";
+import { Util } from "../../utils/Util.js";
 
 export class MessageCommandDeniedListener extends Listener<typeof Events.MessageCommandDenied> {
     // eslint-disable-next-line class-methods-use-this

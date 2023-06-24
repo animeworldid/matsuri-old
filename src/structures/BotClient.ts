@@ -1,9 +1,9 @@
 import { SapphireClient } from "@sapphire/framework";
 import { ClientOptions } from "discord.js";
-import * as constants from "../constants";
-import { Util } from "../utils/Util";
+import * as constants from "../constants/index.js";
+import { Util } from "../utils/Util.js";
 import { createAmqp, RoutingPublisher } from "@nezuchan/cordis-brokers";
-import { amqpUrl } from "../config";
+import { amqpUrl } from "../config.js";
 
 export class BotClient extends SapphireClient {
     public readonly util = new Util(this);

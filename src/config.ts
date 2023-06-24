@@ -1,5 +1,5 @@
 import { ActivityType, ClientPresenceStatus } from "discord.js";
-import { IPresenceData } from "./typings";
+import { IPresenceData } from "./typings/index.js";
 
 export const devs: string[] = JSON.parse(process.env.CONFIG_DEVS ?? "[]");
 export const guildsToRegister = JSON.parse(process.env.CONFIG_GUILD_TO_REGISTER ?? "[]");

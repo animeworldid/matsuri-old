@@ -2,8 +2,8 @@
 import { Command, ApplicationCommandRegistry, RegisterBehavior, CommandOptionsRunTypeEnum, Result } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
 import { APIEmbedField, ApplicationCommandOptionType, EmbedBuilder, TextChannel } from "discord.js";
-import { guildsToRegister } from "../../config";
-import { Channels } from "../../constants";
+import { guildsToRegister } from "../../config.js";
+import { Channels } from "../../constants/index.js";
 @ApplyOptions<Command.Options>({
     aliases: ["say"],
     name: "echo",

@@ -1,8 +1,8 @@
 import { EmbedBuilder, User, hyperlink } from "discord.js";
-import { Anilist, AnilistAnime } from "../Anilist";
-import { Util } from "../Util";
+import { Anilist, AnilistAnime } from "../Anilist.js";
+import { Util } from "../Util.js";
 import { toTitleCase } from "@sapphire/utilities";
-import { Emojis } from "../../constants";
+import { Emojis } from "../../constants/index.js";
 
 export function AnimeResponseBuilder(data: AnilistAnime, user: User): EmbedBuilder[] {
     const externalLink = [

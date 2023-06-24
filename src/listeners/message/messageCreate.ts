@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener } from "@sapphire/framework";
 import { Message, MessageType } from "discord.js";
-import { Channels, Guild } from "../../constants";
+import { Channels, Guild } from "../../constants/index.js";
 
 @ApplyOptions<Listener.Options>({
     event: "messageCreate"

@@ -1,8 +1,8 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import { GuildMember } from "discord.js";
-import { Roles, Guild, autoRole } from "../constants";
-import { amqpUrl } from "../config";
+import { Roles, Guild, autoRole } from "../constants/index.js";
+import { amqpUrl } from "../config.js";
 
 @ApplyOptions<Listener.Options>({
     event: "guildMemberUpdate"

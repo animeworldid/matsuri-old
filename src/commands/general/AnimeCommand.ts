@@ -2,10 +2,10 @@ import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior, Result } from "@sapphire/framework";
 import { ApplicationCommandOptionType, ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
 import { toTitleCase } from "@sapphire/utilities";
-import { guildsToRegister } from "../../config";
-import { Anilist } from "../../utils/Anilist";
-import { SelectMenuCustomIds } from "../../constants";
-import { AnimeResponseBuilder } from "../../utils/responseBuilder/AnimeResponseBuilder";
+import { guildsToRegister } from "../../config.js";
+import { Anilist } from "../../utils/Anilist.js";
+import { SelectMenuCustomIds } from "../../constants/index.js";
+import { AnimeResponseBuilder } from "../../utils/responseBuilder/AnimeResponseBuilder.js";
 
 @ApplyOptions<Command.Options>({
     aliases: [],

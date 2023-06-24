@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
 import { ColorResolvable, EmbedBuilder } from "discord.js";
-import { guildsToRegister } from "../../config";
+import { guildsToRegister } from "../../config.js";
 
 @ApplyOptions<Command.Options>({
     aliases: [],

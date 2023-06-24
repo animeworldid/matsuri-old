@@ -3,12 +3,12 @@
 import { Command, ApplicationCommandRegistry, RegisterBehavior, Args } from "@sapphire/framework";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandOptionType, AttachmentBuilder, BufferResolvable, EmbedBuilder, Message, MessagePayload, MessageTarget } from "discord.js";
-import { Util } from "../../utils/Util";
+import { Util } from "../../utils/Util.js";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { Canvas as SCanvas, loadImage } from "canvas-constructor/napi-rs";
 import { cast } from "@sapphire/utilities";
-import { guildsToRegister } from "../../config";
+import { guildsToRegister } from "../../config.js";
 
 @ApplyOptions<Command.Options>({
     aliases: ["cv"],

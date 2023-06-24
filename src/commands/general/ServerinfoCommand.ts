@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ApplicationCommandRegistry, Command, RegisterBehavior } from "@sapphire/framework";
-import { guildsToRegister } from "../../config";
-import { Util } from "../../utils/Util";
+import { guildsToRegister } from "../../config.js";
+import { Util } from "../../utils/Util.js";
 import moment from "moment";
 import { ApplicationCommandOptionType, ChannelType, GuildVerificationLevel } from "discord.js";
 
