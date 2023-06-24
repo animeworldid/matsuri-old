@@ -1,5 +1,5 @@
 import { ActivityOptions, ClientPresenceStatus } from "discord.js";
-import { Util as AdditionalUtil } from "../utils/Util";
+import { Util as AdditionalUtil } from "../utils/Util.js";
 
 export interface MembershipPayload {
     avatarURL: string;
