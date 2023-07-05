@@ -40,7 +40,7 @@ export class GuildMemberUpdateListener extends Listener {
             if (oldMember.roles.cache.size !== newMember.roles.cache.size) {
                 if (amqpUrl !== undefined) {
                     const payload = this.container.client.util.fetchMembership();
-                    this.container.client.amqpWebsite.publish("", "MEMBERSHIP_UPDATE", payload);
+                    this.container.client.amqp.publish("WEBSITE", "MEMBERSHIP_UPDATE", Buffer.from(JSON.stringify(payload)));
                 }
             }
         }
