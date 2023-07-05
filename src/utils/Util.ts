@@ -19,10 +19,12 @@ export class Util {
 
     public publishPrimaryGuildStats(): boolean {
         const primaryGuild = this.client.guilds.cache.get(Guild.Primary);
-        return this.client.amqpWebsite.publish("", "PRIMARY_GUILD_STATS_UPDATE", {
-            memberCount: primaryGuild?.memberCount ?? 0,
-            boostLevel: primaryGuild?.premiumTier
-        });
+        return this.client.amqp.publish("WEBSITE", "PRIMARY_GUILD_STATS_UPDATE", Buffer.from(
+            JSON.stringify({
+                memberCount: primaryGuild?.memberCount ?? 0,
+                boostLevel: primaryGuild?.premiumTier
+            })
+        ));
     }
 
     public fetchMembership(): Record<"members" | "staff", { icon: string | null; members: MembershipPayload[] }[] & typeof membershipRoles & typeof staffRoles> {
