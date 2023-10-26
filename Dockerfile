@@ -1,4 +1,4 @@
-FROM ghcr.io/hazmi35/node:18-dev-alpine as build-stage
+FROM ghcr.io/hazmi35/node:21-dev-alpine as build-stage
 
 # Prepare pnpm with corepack (experimental feature)
 RUN corepack enable && corepack prepare pnpm@latest-7
@@ -28,7 +28,7 @@ RUN pnpm run build
 RUN DOCKER=true pnpm prune --production
 
 # Get ready for production
-FROM ghcr.io/hazmi35/node:18-alpine
+FROM ghcr.io/hazmi35/node:21-alpine
 
 LABEL name "matsuri"
 LABEL maintainer "Anime World Indonesia <dev@animeworld.moe>"
